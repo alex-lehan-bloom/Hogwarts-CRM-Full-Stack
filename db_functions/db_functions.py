@@ -41,7 +41,7 @@ class DbFunctions:
                                      {'$set': {"existing_skills": updated_skills_without_dupes}})
         return updated
 
-    def get_students_with_skill(self, skill):
+    def get_students_who_have_skill(self, skill):
         students_with_skill = db.students.aggregate(
             [{'$match': {"existing_skills": skill}}, {"$count": "num_students"}])
         for i in students_with_skill:

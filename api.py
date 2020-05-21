@@ -10,25 +10,31 @@ db = DbFunctions()
 validator = Validators()
 
 @app.route("/students")
-def get_all_students_route():
-    all_students = db.get_all_students()
-    response = app.response_class(response=json.dumps(all_students), status=200, mimetype="application/json")
-    return response
-
-
-@app.route("/student", methods=['POST'])
-def add_student_route():
-    content = request.form
-    try:
-        validator.validate_new_student(content)
-    except Exception as error:
-        response = app.response_class(response=json.dumps({"error": str(error)}), status=400,
-                                      mimetype="application/json")
+def get_students_route():
+    if request.args.get('skill'):
+        skill = request.args.get('skill')
+        students_with_skill = db.get_students_who_have_skill(skill)
+        response = app.response_class(response=json.dumps({"Students with skill '{}'.".format(skill): students_with_skill}), status=200, mimetype="application/json")
         return response
-    new_student = Student(content)
-    student_id = db.add_student(new_student)
-    response = app.response_class(response=json.dumps({"student_id": student_id}), status=200, mimetype="application/json")
-    return response
+    if request.args.get('desired_skill'):
+        desired_skill = request.args.get('desired_skill')
+        students_wanting_skill = db.get_students_who_want_skill(desired_skill)
+        response = app.response_class(
+            response=json.dumps({"Students with want to have the '{}' skill.".format(desired_skill): students_wanting_skill}), status=200,
+            mimetype="application/json")
+        return response
+    else:
+        all_students = db.get_all_students()
+        response = app.response_class(response=json.dumps(all_students), status=200, mimetype="application/json")
+        return response
+
+
+
+@app.route("/students")
+def get_students_by_skill_route():
+    skill = request.args.get('skill')
+    print(skill)
+
 
 @app.route("/student/<student_id>")
 def get_single_student_route(student_id):
@@ -46,6 +52,20 @@ def get_single_student_route(student_id):
         response = app.response_class(response=json.dumps(student), status=200, mimetype="application/json")
     return response
 
+@app.route("/student", methods=['POST'])
+def add_student_route():
+    content = request.form
+    try:
+        validator.validate_new_student(content)
+    except Exception as error:
+        response = app.response_class(response=json.dumps({"error": str(error)}), status=400,
+                                      mimetype="application/json")
+        return response
+    new_student = Student(content)
+    student_id = db.add_student(new_student)
+    response = app.response_class(response=json.dumps({"student_id": student_id}), status=200, mimetype="application/json")
+    return response
+
 @app.route("/student/<student_id>", methods=['DELETE'])
 def delete_student_route(student_id):
     try:
@@ -60,6 +80,7 @@ def delete_student_route(student_id):
         response_body = {"Status": "Student with id {} was successfully deleted.".format(student_id)}
         response = app.response_class(response=json.dumps(response_body), status=200, mimetype="application/json")
     return response
+
 
 if __name__ == '__main__':
     app.run(debug=True)
