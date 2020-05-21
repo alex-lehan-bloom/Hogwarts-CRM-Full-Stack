@@ -1,6 +1,7 @@
 from initialize_db import db
 from bson import ObjectId
 
+
 class DbFunctions:
 
     def add_student(self, student):
@@ -24,15 +25,37 @@ class DbFunctions:
         else:
             return False
 
+    def set_user_skills(self, new_skills, student_id):
+        student = self.get_single_student(student_id)
+        existing_skills = student['existing_skills']
+        updated_skills = existing_skills + new_skills
+        updated_skills_without_dupes = list(dict.fromkeys(updated_skills))
+        updated = db.students.update({'_id': ObjectId(student_id)},
+                                     {'$set': {"existing_skills": updated_skills_without_dupes}})
+        return updated
 
+    def get_students_with_skill(self, skill):
+        students_with_skill = db.students.aggregate(
+            [{'$match': {"existing_skills": skill}}, {"$count": "num_students"}])
+        for i in students_with_skill:
+            return i['num_students']
+        return 0
 
+    def get_students_who_want_skill(self, skill):
+        students_with_want_skill = db.students.aggregate(
+            [{'$match': {"desired_skills": skill}}, {"$count": "num_students"}])
+        for i in students_with_want_skill:
+            return i['num_students']
+        return 0
 
 
 test = DbFunctions()
 
 # for i in range(1,10):
-#     test.add_student({"name": "Rachel" + str(i)})
+#     test.add_student({"name": "Rachel" + str(i), "desired_skills": ["1", "2", "3"]})
+test.get_students_who_want_skill("5")
 # test.get_all_students()
+# test.set_user_skills(["6", "7"], "5ec5495045ab221593f3de6a")
+# test.get_student_with_skill("1")
 # test.delete_student('5ec52776f7e87904cd20c3db')
 # test.get_all_students()
-
