@@ -1,13 +1,12 @@
 from initialize_db import db
 from bson import ObjectId
-import datetime
 
 
 class DbFunctions:
 
     def add_student(self, student):
         student_id = db.students.insert(student)
-        return student_id
+        return str(student_id)
 
     def get_all_students(self):
         students = db.students.find({})
@@ -55,15 +54,4 @@ class DbFunctions:
             return i['students_added_today']
         return 0
 
-test = DbFunctions()
 
-print(datetime.datetime.now().strftime("%x"))
-# for i in range(1,10):
-#     test.add_student({"name": "Rachel" + str(i), "date":datetime.datetime.now().strftime("%x")
-# })
-# test.get_student_by_date("05/20/20")
-# test.get_all_students()
-# test.set_user_skills(["6", "7"], "5ec5495045ab221593f3de6a")
-# test.get_student_with_skill("1")
-# test.delete_student('5ec52776f7e87904cd20c3db')
-# test.get_all_students()
