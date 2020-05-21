@@ -19,7 +19,11 @@ class DbFunctions:
 
     def get_single_student(self, student_id):
         student = db.students.find_one({'_id': ObjectId(student_id)})
-        return student
+        if student is None:
+            return {"Error": "Id '{}' does not exist.".format(student_id)}
+        else:
+            student['_id'] = str(student['_id'])
+            return student
 
     def delete_student(self, student_id):
         student = db.students.delete_one({'_id': ObjectId(student_id)})

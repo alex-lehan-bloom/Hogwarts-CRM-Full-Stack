@@ -1,7 +1,9 @@
-houses = ["gryfindor", "ravenclaw", "hufflepuff", "slytherin"]
+import bson
+
 
 
 class Validators:
+    houses = ["gryfindor", "ravenclaw", "hufflepuff", "slytherin"]
 
     def validate_new_student(self, student):
         try:
@@ -33,14 +35,13 @@ class Validators:
         if not last_name.isalpha() or first_name is None:
             raise ValueError("Last name is missing contains an invalid character.")
 
-
-
-
-
-
     def validate_house(self, student_house):
-        if not student_house.lower() in houses:
+        if not student_house.lower() in self.houses:
             raise ValueError("House {} does not exist.".format(student_house))
+
+    def validate_objectid(self, object_id):
+        if not bson.objectid.ObjectId.is_valid(object_id):
+            raise ValueError("'{}' is an invalid id.".format(object_id))
 
 
 
