@@ -28,9 +28,13 @@ class Validators:
     def validate_student_name(self, first_name, last_name):
         first_name = str(first_name)
         last_name = str(last_name)
-        full_name = "{} {}".format(first_name, last_name)
-        if not full_name.isalpha() or full_name is None:
-            raise ValueError("Name is invalid")
+        if not first_name.isalpha() or first_name is None:
+            raise ValueError("First name is missing contains an invalid character.")
+        if not last_name.isalpha() or first_name is None:
+            raise ValueError("Last name is missing contains an invalid character.")
+
+
+
 
 
 
@@ -42,8 +46,3 @@ class Validators:
 
 
 
-# validator = Validators()
-#
-# dict = { "first_name": "Alex", "last_name": "Bloom", "house": "Grysadasindor"}
-#
-# validator.validate_new_student(dict)

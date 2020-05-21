@@ -10,9 +10,12 @@ class DbFunctions:
 
     def get_all_students(self):
         students = db.students.find({})
-        for i in students:
-            print(i)
-        return students
+        student_list = []
+        for student in students:
+            student['_id'] = str(student['_id'])
+            student_list.append(student)
+
+        return student_list
 
     def get_single_student(self, student_id):
         student = db.students.find_one({'_id': ObjectId(student_id)})
@@ -53,5 +56,7 @@ class DbFunctions:
         for i in student_by_date:
             return i['students_added_today']
         return 0
+
+
 
 
