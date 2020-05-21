@@ -20,7 +20,7 @@ class DbFunctions:
     def get_single_student(self, student_id):
         student = db.students.find_one({'_id': ObjectId(student_id)})
         if student is None:
-            return {"Error": "Id '{}' does not exist.".format(student_id)}
+            return False
         else:
             student['_id'] = str(student['_id'])
             return student

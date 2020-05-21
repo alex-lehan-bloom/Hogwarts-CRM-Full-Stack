@@ -3,7 +3,6 @@ from models.student import Student
 from db_functions import DbFunctions
 from Validators.validator import Validators
 import json
-import bson
 
 
 app = Flask(__name__)
@@ -40,9 +39,27 @@ def get_single_student_route(student_id):
                                       mimetype="application/json")
         return response
     student = db.get_single_student(student_id)
-    response = app.response_class(response=json.dumps(student), status=200, mimetype="application/json")
+    if not student:
+        response_body = {"Error": "Id '{}' does not exist.".format(student_id)}
+        response = app.response_class(response=json.dumps(response_body), status=404, mimetype="application/json")
+    else:
+        response = app.response_class(response=json.dumps(student), status=200, mimetype="application/json")
     return response
 
+@app.route("/student/<student_id>", methods=['DELETE'])
+def delete_student_route(student_id):
+    try:
+        validator.validate_objectid(student_id)
+    except Exception as error:
+        response = app.response_class(response=json.dumps({'Error': str(error)}), status=400, mimetype="application/json")
+    deleted_student = db.delete_student(student_id)
+    if not deleted_student:
+        response_body = {"Error": "Id '{}' does not exist.".format(student_id)}
+        response = app.response_class(response=json.dumps(response_body), status=404, mimetype="application/json")
+    else:
+        response_body = {"Status": "Student with id {} was successfully deleted.".format(student_id)}
+        response = app.response_class(response=json.dumps(response_body), status=200, mimetype="application/json")
+    return response
 
 if __name__ == '__main__':
     app.run(debug=True)
