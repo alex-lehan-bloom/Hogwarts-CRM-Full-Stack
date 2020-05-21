@@ -1,5 +1,6 @@
 from initialize_db import db
 from bson import ObjectId
+import datetime
 
 
 class DbFunctions:
@@ -48,12 +49,19 @@ class DbFunctions:
             return i['num_students']
         return 0
 
+    def get_student_by_date(self, date):
+        student_by_date = db.students.aggregate([{'$match': {"date": date}}, {'$count': "students_added_today"}])
+        for i in student_by_date:
+            return i['students_added_today']
+        return 0
 
 test = DbFunctions()
 
+print(datetime.datetime.now().strftime("%x"))
 # for i in range(1,10):
-#     test.add_student({"name": "Rachel" + str(i), "desired_skills": ["1", "2", "3"]})
-test.get_students_who_want_skill("5")
+#     test.add_student({"name": "Rachel" + str(i), "date":datetime.datetime.now().strftime("%x")
+# })
+# test.get_student_by_date("05/20/20")
 # test.get_all_students()
 # test.set_user_skills(["6", "7"], "5ec5495045ab221593f3de6a")
 # test.get_student_with_skill("1")
