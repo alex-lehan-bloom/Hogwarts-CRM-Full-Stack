@@ -5,6 +5,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/api.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db_functions/db_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/db_functions/db_functions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/student.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/student.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -150,9 +151,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.api" />
+        <item itemvalue="Python.db_functions" />
         <item itemvalue="Python.validator" />
         <item itemvalue="Python.test" />
-        <item itemvalue="Python.db_functions" />
         <item itemvalue="Python.initialize_db" />
       </list>
     </recent_temporary>

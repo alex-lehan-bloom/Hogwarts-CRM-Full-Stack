@@ -23,6 +23,15 @@ def get_students_route():
             response=json.dumps({"Students with want to have the '{}' skill.".format(desired_skill): students_wanting_skill}), status=200,
             mimetype="application/json")
         return response
+    if request.args.get('month'):
+        month_and_year = request.args.get('month')
+        month_and_year = month_and_year.split("/")
+        month = int(month_and_year[0])
+        year = int(month_and_year[1])
+        # Add some validation for int. Remove leading 0 on month
+        students_created_this_month = db.get_students_by_month(month, year)
+        response = app.response_class(response=json.dumps(students_created_this_month), status=200, mimetype="application/json")
+        return response
     else:
         all_students = db.get_all_students()
         response = app.response_class(response=json.dumps(all_students), status=200, mimetype="application/json")

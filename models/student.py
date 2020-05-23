@@ -8,7 +8,7 @@ class Student(dict):
         dict.__init__(self,
                       first_name=student.get('first_name'),
                       last_name=student.get('last_name'),
-                      create_date =datetime.datetime.now().strftime("%D"),
+                      create_date =datetime.datetime.now().isoformat(),
                       updated_date= datetime.datetime.now().strftime("%D"),
                       house=student.get('house'),
                       existing_skills = student.get('existing_skills'),
