@@ -60,7 +60,8 @@ class DbFunctions:
     def get_student_by_date(self, date):
         student_by_date = db.students.aggregate([{'$match': {"create_date": date}}])
         students_created_on_date = []
-        for student in students_created_on_date:
+        for student in student_by_date:
+            student['_id'] = str(student['_id'])
             students_created_on_date.append(student)
         return students_created_on_date
 
@@ -74,6 +75,7 @@ class DbFunctions:
             student['_id'] = str(student['_id'])
             students_created_in_month.append(student)
         return students_created_in_month
+
 
 
 

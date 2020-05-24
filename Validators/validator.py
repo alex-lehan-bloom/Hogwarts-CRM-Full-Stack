@@ -43,6 +43,11 @@ class Validators:
         if not bson.objectid.ObjectId.is_valid(object_id):
             raise ValueError("'{}' is an invalid id.".format(object_id))
 
+    def validate_item_is_int(self, item):
+        if not isinstance(item, int):
+            raise ValueError("Query parameter must be an int.")
+
+
 
 
 

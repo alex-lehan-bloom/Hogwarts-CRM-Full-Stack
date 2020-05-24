@@ -4,39 +4,57 @@ from db_functions import DbFunctions
 from Validators.validator import Validators
 import json
 
-
 app = Flask(__name__)
 db = DbFunctions()
 validator = Validators()
+
 
 @app.route("/students")
 def get_students_route():
     if request.args.get('skill'):
         skill = request.args.get('skill')
         students_with_skill = db.get_students_who_have_skill(skill)
-        response = app.response_class(response=json.dumps({"Students with skill '{}'.".format(skill): students_with_skill}), status=200, mimetype="application/json")
+        response = app.response_class(
+            response=json.dumps({"Students with skill '{}'.".format(skill): students_with_skill}), status=200,
+            mimetype="application/json")
         return response
     if request.args.get('desired_skill'):
         desired_skill = request.args.get('desired_skill')
         students_wanting_skill = db.get_students_who_want_skill(desired_skill)
         response = app.response_class(
-            response=json.dumps({"Students with want to have the '{}' skill.".format(desired_skill): students_wanting_skill}), status=200,
+            response=json.dumps(
+                {"Students with want to have the '{}' skill.".format(desired_skill): students_wanting_skill}),
+            status=200,
             mimetype="application/json")
+        return response
+    if request.args.get('date'):
+        date = request.args.get('date')
+        students_created_on_date = db.get_student_by_date(date)
+        response = app.response_class(response=json.dumps(students_created_on_date), status=200,
+                                      mimetype="application/json")
         return response
     if request.args.get('month'):
         month_and_year = request.args.get('month')
-        month_and_year = month_and_year.split("/")
+        for i in month_and_year:
+            try:
+                validator.validate_item_is_int(i)
+            except Exception as error:
+                print(error)
+                response = app.response_class(response=json.dumps({"Error": str(error)}), status=400,
+                                              mimetype="application/json")
+                return response
+        month_and_year = month_and_year.split("-")
         month = int(month_and_year[0])
         year = int(month_and_year[1])
         # Add some validation for int. Remove leading 0 on month
         students_created_this_month = db.get_students_by_month(month, year)
-        response = app.response_class(response=json.dumps(students_created_this_month), status=200, mimetype="application/json")
+        response = app.response_class(response=json.dumps(students_created_this_month), status=200,
+                                      mimetype="application/json")
         return response
     else:
         all_students = db.get_all_students()
         response = app.response_class(response=json.dumps(all_students), status=200, mimetype="application/json")
         return response
-
 
 
 @app.route("/students")
@@ -61,6 +79,7 @@ def get_single_student_route(student_id):
         response = app.response_class(response=json.dumps(student), status=200, mimetype="application/json")
     return response
 
+
 @app.route("/student", methods=['POST'])
 def add_student_route():
     content = request.form
@@ -72,15 +91,18 @@ def add_student_route():
         return response
     new_student = Student(content)
     student_id = db.add_student(new_student)
-    response = app.response_class(response=json.dumps({"student_id": student_id}), status=200, mimetype="application/json")
+    response = app.response_class(response=json.dumps({"student_id": student_id}), status=200,
+                                  mimetype="application/json")
     return response
+
 
 @app.route("/student/<student_id>", methods=['DELETE'])
 def delete_student_route(student_id):
     try:
         validator.validate_objectid(student_id)
     except Exception as error:
-        response = app.response_class(response=json.dumps({'Error': str(error)}), status=400, mimetype="application/json")
+        response = app.response_class(response=json.dumps({'Error': str(error)}), status=400,
+                                      mimetype="application/json")
     deleted_student = db.delete_student(student_id)
     if not deleted_student:
         response_body = {"Error": "Id '{}' does not exist.".format(student_id)}

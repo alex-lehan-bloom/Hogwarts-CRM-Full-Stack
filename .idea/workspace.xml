@@ -3,8 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="c8a22f53-198e-455b-9032-9eb66a27b80e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Validators/validator.py" beforeDir="false" afterPath="$PROJECT_DIR$/Validators/validator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/api.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db_functions/db_functions.py" beforeDir="false" afterPath="$PROJECT_DIR$/db_functions/db_functions.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/student.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/student.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -41,7 +42,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.db_functions">
+  <component name="RunManager" selected="Python.api">
     <configuration name="api" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Hogwarts CRM" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -149,8 +150,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.db_functions" />
         <item itemvalue="Python.api" />
+        <item itemvalue="Python.db_functions" />
         <item itemvalue="Python.validator" />
         <item itemvalue="Python.test" />
         <item itemvalue="Python.initialize_db" />
