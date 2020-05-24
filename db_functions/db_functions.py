@@ -57,17 +57,23 @@ class DbFunctions:
             return i['num_students']
         return 0
 
+    def get_student_by_date(self, date):
+        student_by_date = db.students.aggregate([{'$match': {"create_date": date}}])
+        students_created_on_date = []
+        for student in students_created_on_date:
+            students_created_on_date.append(student)
+        return students_created_on_date
+
     def get_students_by_month(self, month, year):
         num_days_in_month = calendar.monthrange(year, month)[1]
         start_date = str(datetime.date(year, month, 1))
         end_date = str(datetime.date(year, month, num_days_in_month))
         students_matching_search = db.students.aggregate([{'$match': {"create_date": {'$gte': start_date, '$lt': end_date}}}])
-        students_created_in_date = []
+        students_created_in_month = []
         for student in students_matching_search:
             student['_id'] = str(student['_id'])
-            students_created_in_date.append(student)
-        return students_created_in_date
-
+            students_created_in_month.append(student)
+        return students_created_in_month
 
 
 
