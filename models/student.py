@@ -1,13 +1,13 @@
-import json
 import datetime
+from static_methods.static_methods import turn_string_to_list
 
 
 class Student(dict):
 
     def __init__(self, student):
-        self.existing_skills = self.turn_string_to_list(student.get("existing_skills"))
-        self.desired_skills = self.turn_string_to_list(student.get('desired_skills'))
-        self.course_interests = self.turn_string_to_list(student.get("course_interests"))
+        self.existing_skills = turn_string_to_list(student.get("existing_skills"))
+        self.desired_skills = turn_string_to_list(student.get('desired_skills'))
+        self.course_interests = turn_string_to_list(student.get("course_interests"))
 
         dict.__init__(self,
                       first_name=student.get('first_name'),
@@ -19,11 +19,4 @@ class Student(dict):
                       desired_skills=self.desired_skills,
                       course_interests=self.course_interests)
 
-    def turn_string_to_list(self, str):
-        if str == None:
-            list = []
-        else:
-            list = str.split(",")
-            for index, item in enumerate(list):
-                list[index] = item.strip()
-        return list
+

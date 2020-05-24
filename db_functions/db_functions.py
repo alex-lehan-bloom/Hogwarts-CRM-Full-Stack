@@ -37,12 +37,12 @@ class DbFunctions:
     def set_user_skills(self, new_skills, student_id):
         student = self.get_single_student(student_id)
         existing_skills = student['existing_skills']
-        print(type(existing_skills))
         updated_skills = existing_skills + new_skills
         updated_skills_without_dupes = list(dict.fromkeys(updated_skills))
-        updated = db.students.update({'_id': ObjectId(student_id)},
+        update = db.students.update({'_id': ObjectId(student_id)},
                                      {'$set': {"existing_skills": updated_skills_without_dupes}})
-        return updated
+        updated_student = self.get_single_student(student_id)
+        return updated_student
 
     def get_students_who_have_skill(self, skill):
         students_with_skill = db.students.aggregate(
