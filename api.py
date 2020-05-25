@@ -112,7 +112,7 @@ def get_single_student_route(student_id):
         response = app.response_class(response=json.dumps(student), status=200, mimetype="application/json")
     return response
 
-@app.route("/student/update_skills/<student_id>", methods=['POST'])
+@app.route("/student/update_student/<student_id>", methods=['POST'])
 def set_student_skills_route(student_id):
     try:
         validator.validate_objectid(student_id)
@@ -126,11 +126,15 @@ def set_student_skills_route(student_id):
         response = app.response_class(response=json.dumps(response_body), status=404, mimetype="application/json")
         return response
     else:
-        new_skills = request.form['new_skills']
-        new_skills = turn_string_to_list(new_skills)
-        updated_student = db.set_user_skills(new_skills, student_id)
-        response=app.response_class(response=json.dumps(updated_student), status=200, mimetype="application/json")
-        return response
+        updates_to_user = request.form
+        print(updates_to_user)
+        try:
+            updated_student = db.update_student(student_id, updates_to_user)
+            response=app.response_class(response=json.dumps(updated_student), status=200, mimetype="application/json")
+            return response
+        except Exception as error:
+            response=app.response_class(response=json.dumps({"Error": str(error)}), status=400, mimetype="application/json")
+            return response
 
 
 

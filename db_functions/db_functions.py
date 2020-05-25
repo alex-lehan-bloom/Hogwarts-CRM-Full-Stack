@@ -77,11 +77,12 @@ class DbFunctions:
                 if key == i:
                     key_is_valid = True
                 if key_is_valid:
-                    single_entry = {key: dict[key]}
+                    single_entry = {key: dict[key], "last_update_time": datetime.datetime.now().isoformat()}
                     dict_to_update = {'$set': single_entry}
                     student = db.students.update_one({"_id": ObjectId(student_id)}, dict_to_update)
-            else:
-                raise ValueError("One of the fields is invalid.")
+            if not key_is_valid:
+                invalid_key = key
+                raise ValueError("The field '{}' is invalid.".format(invalid_key))
         return self.get_single_student(student_id)
 
 
