@@ -1,5 +1,5 @@
 import datetime
-from static_methods.static_methods import turn_string_to_list
+from static.static_methods import turn_string_to_list
 
 
 class Student(dict):
@@ -13,7 +13,7 @@ class Student(dict):
                       first_name=student.get('first_name'),
                       last_name=student.get('last_name'),
                       create_date=datetime.date.today().isoformat(),
-                      updated_date=datetime.date.today().isoformat(),
+                      last_update_time=datetime.datetime.now().isoformat(),
                       house=student.get('house'),
                       existing_skills=self.existing_skills,
                       desired_skills=self.desired_skills,

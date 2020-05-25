@@ -2,7 +2,7 @@ from flask import Flask, request
 from models.student import Student
 from db_functions import DbFunctions
 from Validators.validator import Validators
-from static_methods.static_methods import turn_string_to_list
+from static.static_methods import turn_string_to_list
 import json
 
 app = Flask(__name__)

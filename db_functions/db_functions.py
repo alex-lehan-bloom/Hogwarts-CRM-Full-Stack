@@ -2,6 +2,7 @@ from initialize_db import db
 from bson import ObjectId
 import datetime
 import calendar
+from static.static_info import student_fields
 
 
 class DbFunctions:
@@ -34,15 +35,7 @@ class DbFunctions:
         else:
             return False
 
-    def set_user_skills(self, new_skills, student_id):
-        student = self.get_single_student(student_id)
-        existing_skills = student['existing_skills']
-        updated_skills = existing_skills + new_skills
-        updated_skills_without_dupes = list(dict.fromkeys(updated_skills))
-        update = db.students.update({'_id': ObjectId(student_id)},
-                                     {'$set': {"existing_skills": updated_skills_without_dupes}})
-        updated_student = self.get_single_student(student_id)
-        return updated_student
+
 
     def get_students_who_have_skill(self, skill):
         students_with_skill = db.students.aggregate(
@@ -76,6 +69,22 @@ class DbFunctions:
             student['_id'] = str(student['_id'])
             students_created_in_month.append(student)
         return students_created_in_month
+
+    def update_student(self, student_id, dict):
+        for key in dict:
+            key_is_valid = False
+            for i in student_fields:
+                if key == i:
+                    key_is_valid = True
+                if key_is_valid:
+                    single_entry = {key: dict[key]}
+                    dict_to_update = {'$set': single_entry}
+                    student = db.students.update_one({"_id": ObjectId(student_id)}, dict_to_update)
+            else:
+                raise ValueError("One of the fields is invalid.")
+        return self.get_single_student(student_id)
+
+
 
 
 
