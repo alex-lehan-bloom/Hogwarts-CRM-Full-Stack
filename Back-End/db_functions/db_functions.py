@@ -2,7 +2,7 @@ from initialize_db import db
 from bson import ObjectId
 import datetime
 import calendar
-from static.static_info import student_fields
+from static_info import student_fields
 
 
 class DbFunctions:
@@ -34,8 +34,6 @@ class DbFunctions:
             return True
         else:
             return False
-
-
 
     def get_students_who_have_skill(self, skill):
         students_with_skill = db.students.aggregate(
