@@ -1,6 +1,40 @@
 .sidemenu {
-  width: 250px;
+  padding-top: 50px;
+  min-width: 250px;
   min-height: 400px;
   height: 100%;
-  border-right: 1px solid black;
+  background-color: #e9424a;
+  border-right: 1px solid rgb(8, 8, 8);
+  box-shadow: 7px 0 5px 0 rgb(158, 158, 158);
+}
+
+.sidemenu .divider {
+  background-color: white;
+  height: 1px;
+  width: 100%;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.sidemenu .navbar-link,
+.sidemenu .navbar-link-active {
+  padding-left: 50px;
+  display: block;
+}
+
+.sidemenu .navbar-link:hover,
+.sidemenu .navbar-link-active:hover {
+  background-color: rgb(206, 203, 203);
+  color: rgb(73, 71, 71);
+}
+.sidemenu .navbar-link {
+  color: rgb(245, 240, 240);
+  text-decoration: none;
+  padding: 13px 0 13px 50px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.sidemenu .navbar-link-active {
+  color: rgb(41, 40, 40);
 }
