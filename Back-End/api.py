@@ -64,7 +64,7 @@ def get_students_by_skill_route():
 
 @app.route("/student", methods=['POST'])
 def add_student_route():
-    content = request.form
+    content = request.json
     try:
         validator.validate_new_student(content)
     except Exception as error:

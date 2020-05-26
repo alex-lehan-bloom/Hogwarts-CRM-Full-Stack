@@ -1,23 +1,18 @@
 import React, { useEffect, useState } from "react";
-import ListOfStudents from "./ListOfStudents";
+import StudentsList from "./StudentsList";
 import { getStudents } from "../lib/api";
 
-function Home(props) {
+function Home() {
   const [students, setStudents] = useState();
   const [displayStudents, setDisplayStudents] = useState(false);
-
-  //Nav bar
-  // List of users
-  // Add user button
 
   useEffect(async () => {
     let students = await getStudents();
     setStudents(students);
     setDisplayStudents(true);
-    console.log(students);
   }, []);
 
-  return <>{displayStudents && <ListOfStudents students={students} />}</>;
+  return <>{displayStudents && <StudentsList students={students} />}</>;
 }
 
 export default Home;

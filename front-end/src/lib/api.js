@@ -7,3 +7,24 @@ export async function getStudents() {
   let data = response.data;
   return data;
 }
+
+export async function enrollStudent(
+  first_name,
+  last_name,
+  house,
+  existing_skills,
+  desired_skills,
+  courses
+) {
+  
+  let response = await axios.post(`${baseURL}/student`, {
+    first_name,
+    last_name,
+    house,
+    existing_skills,
+    desired_skills,
+    courses,
+  });
+  let data = response.data;
+  return data;
+}

@@ -32,4 +32,5 @@
 
 .sidemenu .navbar-link-active {
   color: black;
+  font-weight: 600;
 }

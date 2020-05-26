@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import SideMenu from "./components/SideMenu";
 import Banner from "./components/Banner";
-import Home from "./components/Home";
-
+import Students from "./components/Students";
+import StudentForm from "./components/AddStudentForm";
+import { enrollStudent } from "./lib/api";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./css/App.css";
 
@@ -11,15 +12,18 @@ function App() {
     <div className="App">
       <Router>
         <SideMenu />
-
-        <Switch>
-          <div className="page-content">
-            <Route exact path="/">
-              <Banner />
-              <Home />
+        <div className="page-content">
+          <Switch>
+            <Route exact path="/students">
+              <Banner header="Students" />
+              <Students />
             </Route>
-          </div>
-        </Switch>
+            <Route exact path="/enroll-student">
+              <Banner header="Enroll student" />
+              <StudentForm />
+            </Route>
+          </Switch>
+        </div>
       </Router>
     </div>
   );

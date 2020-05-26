@@ -25,11 +25,11 @@ function SideMenu(props) {
       </NavLink>
       <NavLink
         exact
-        to="/add-student"
+        to="/enroll-student"
         className="navbar-link"
         activeClassName="navbar-link-active"
       >
-        Add Student
+        Enroll student
       </NavLink>
     </div>
   );
