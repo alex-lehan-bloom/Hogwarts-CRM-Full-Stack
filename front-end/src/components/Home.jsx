@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import ListOfStudents from "./ListOfStudents";
-import SideMenu from "./SideMenu";
 import { getStudents } from "../lib/api";
 
 function Home(props) {
@@ -18,14 +17,7 @@ function Home(props) {
     console.log(students);
   }, []);
 
-  return (
-    <>
-      <SideMenu />
-      <div className="page-content">
-        {displayStudents && <ListOfStudents students={students} />}
-      </div>
-    </>
-  );
+  return <>{displayStudents && <ListOfStudents students={students} />}</>;
 }
 
 export default Home;

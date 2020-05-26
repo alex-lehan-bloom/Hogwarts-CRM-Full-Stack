@@ -1,12 +1,12 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { Button } from "@material-ui/core";
 import "../css/SideMenu.css";
 
 function SideMenu(props) {
   return (
     <div className="sidemenu">
-      <div className="divider" />
+      <img src="images/logo192.png" />
+
       <NavLink
         exact
         to="/"

@@ -1,0 +1,7 @@
+.banner {
+  padding-top: var(--page-padding-top);
+}
+.banner h2 {
+  font-weight: normal;
+  margin: 0 10px 53px 10px;
+}

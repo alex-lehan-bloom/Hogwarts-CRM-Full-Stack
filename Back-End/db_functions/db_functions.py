@@ -17,7 +17,6 @@ class DbFunctions:
         for student in students:
             student['_id'] = str(student['_id'])
             student_list.append(student)
-
         return student_list
 
     def get_single_student(self, student_id):
