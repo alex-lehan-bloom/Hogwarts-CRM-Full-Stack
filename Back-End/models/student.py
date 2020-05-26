@@ -1,5 +1,5 @@
 import datetime
-from static.static_methods import turn_string_to_list
+from static_methods import turn_string_to_list
 
 
 class Student(dict):

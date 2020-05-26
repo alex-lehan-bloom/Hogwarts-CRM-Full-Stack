@@ -1,10 +1,12 @@
 from flask import Flask, request
+from flask_cors import CORS
 from student import Student
 from db_functions import DbFunctions
 from validator import Validators
 import json
 
 app = Flask(__name__)
+CORS(app)
 db = DbFunctions()
 validator = Validators()
 
@@ -46,7 +48,6 @@ def get_students_route():
         month_and_year = month_and_year.split("-")
         month = int(month_and_year[0])
         year = int(month_and_year[1])
-        # Add some validation for int. Remove leading 0 on month
         students_created_this_month = db.get_students_by_month(month, year)
         response = app.response_class(response=json.dumps(students_created_this_month), status=200,
                                       mimetype="application/json")
@@ -56,12 +57,10 @@ def get_students_route():
         response = app.response_class(response=json.dumps(all_students), status=200, mimetype="application/json")
         return response
 
-
 @app.route("/students")
 def get_students_by_skill_route():
     skill = request.args.get('skill')
     print(skill)
-
 
 @app.route("/student", methods=['POST'])
 def add_student_route():
@@ -77,7 +76,6 @@ def add_student_route():
     response = app.response_class(response=json.dumps({"student_id": student_id}), status=200,
                                   mimetype="application/json")
     return response
-
 
 @app.route("/student/<student_id>", methods=['DELETE'])
 def delete_student_route(student_id):
