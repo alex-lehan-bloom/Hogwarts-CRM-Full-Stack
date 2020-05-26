@@ -1,0 +1,12 @@
+.enroll-student-form {
+  margin-left: 60px;
+}
+.first-name {
+  margin: 0 0 25px 0;
+}
+.last-name {
+  margin: 25px 0 25px 0;
+}
+.MuiSelect-select {
+  min-width: 200px;
+}
