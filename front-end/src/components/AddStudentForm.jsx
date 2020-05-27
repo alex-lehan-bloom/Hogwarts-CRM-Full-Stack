@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from "react";
-import TextField from "@material-ui/core/TextField";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import { makeStyles } from "@material-ui/core/styles";
-
-import Select from "@material-ui/core/Select";
+import Field from "./FormItems/Field";
+import HouseSelector from "./FormItems/HouseSelector";
+import SkillsCheckboxes from "./FormItems/SkillsCheckboxes";
 import "../css/AddStudentForm.css";
 
 const useStyles = makeStyles((theme) => ({
@@ -26,58 +23,91 @@ function AddStudentForm() {
   let [firstName, setFirstName] = useState();
   let [lastName, setLastName] = useState();
   let [house, setHouse] = useState("");
-  let houses = ["Gryfindor", "Hufflepuff", "Ravenclaw", "Slytherin"];
+  let [skills, setSkills] = useState([]);
+  let [desiredSkills, setDesiredSkills] = useState([]);
+  let [courses, setCourses] = useState([]);
 
-  function handleFirstNameChange(event) {
-    setFirstName(event.target.value);
+  function handleFirstNameChange(firstName) {
+    setFirstName(firstName);
   }
-  function handleLastNameChange(event) {
-    setLastName(event.target.value);
+  function handleLastNameChange(lastName) {
+    setLastName(lastName);
   }
-  function handleHouse(event) {
-    setHouse(event.target.value);
+  function handleHouse(house) {
+    setHouse(house);
   }
 
-  //   useEffect(() => {
-  //     console.log(house);
-  //   }, [house]);
+  function handleSkills(skills) {
+    setSkills([]);
+    Object.keys(skills).forEach((key) => {
+      if (skills[key]) {
+        setSkills((skills) => [...skills, key]);
+      }
+    });
+  }
+
+  function handleDesiredSkills(skills) {
+    setDesiredSkills([]);
+    Object.keys(skills).forEach((key) => {
+      if (skills[key]) {
+        setDesiredSkills((desiredSkills) => [...desiredSkills, key]);
+      }
+    });
+  }
+
+  function handleCourses(courses) {
+    setDesiredSkills([]);
+    Object.keys(courses).forEach((key) => {
+      if (courses[key]) {
+        setCourses((courses) => [...courses, key]);
+      }
+    });
+  }
+
+  useEffect(() => {
+    console.log("Skills");
+    console.log(skills);
+  }, [skills]);
 
   return (
     <FormControl className={classes.root}>
-      <div className="first-name">
-        <TextField
-          onChange={(event) => {
-            handleFirstNameChange(event);
-          }}
-          label="First Name"
-          variant="outlined"
-        />
-      </div>
-      <div className="last-name">
-        <TextField
-          onChange={(event) => {
-            handleLastNameChange(event);
-          }}
-          label="Last Name"
-          variant="outlined"
-        />
-      </div>
-      <div>
-        <p>House</p>
-        <Select
-          //   className={classes.house}
-          value={house}
-          onChange={(event) => {
-            handleHouse(event);
-          }}
-        >
-          <MenuItem value={house}></MenuItem>
-          <MenuItem value={10}>{houses[0]}</MenuItem>
-          <MenuItem value={20}>{houses[1]}</MenuItem>
-          <MenuItem value={30}>{houses[2]}</MenuItem>
-          <MenuItem value={30}>{houses[3]}</MenuItem>
-        </Select>
-      </div>
+      <Field
+        class="first-name"
+        label="First name"
+        handleInput={(firstName) => {
+          handleFirstNameChange(firstName);
+        }}
+      />
+      <Field
+        class="last-name"
+        label="Last name"
+        handleInput={(lastName) => {
+          handleLastNameChange(lastName);
+        }}
+      />
+      <HouseSelector
+        handleSelection={(house) => {
+          handleHouse(house);
+        }}
+      />
+      <SkillsCheckboxes
+        sectionLabel="Skills"
+        handleSkills={(skills) => {
+          handleSkills(skills);
+        }}
+      />
+      <SkillsCheckboxes
+        sectionLabel="Desired skills"
+        handleSkills={(skills) => {
+          handleDesiredSkills(skills);
+        }}
+      />
+      <SkillsCheckboxes
+        sectionLabel="Classes for this term"
+        handleSkills={(Courses) => {
+          handleCourses(Courses);
+        }}
+      />
     </FormControl>
   );
 }
