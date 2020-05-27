@@ -7,7 +7,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 const useStyles = makeStyles((theme) => ({
   root: {
     "& .MuiFormControlLabel-root": {
-      width: 125,
+      width: 140,
       whiteSpace: "nowrap",
     },
   },
@@ -41,7 +41,6 @@ function SkillsCheckboxes(props) {
 
   return (
     <div className={classes.root}>
-      <p>{props.sectionLabel}</p>
       <FormGroup row>
         <FormControlLabel
           control={

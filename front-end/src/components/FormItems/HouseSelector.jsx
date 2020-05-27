@@ -17,7 +17,6 @@ function HouseSelector(props) {
 
   return (
     <FormGroup>
-      <p>House</p>
       <Select
         //   className={classes.house}
         value={house}

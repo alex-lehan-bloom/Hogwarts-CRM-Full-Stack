@@ -4,11 +4,33 @@ import { makeStyles } from "@material-ui/core/styles";
 import Field from "./FormItems/Field";
 import HouseSelector from "./FormItems/HouseSelector";
 import SkillsCheckboxes from "./FormItems/SkillsCheckboxes";
+import Button from "@material-ui/core/Button";
+import { enrollStudent } from "../lib/api.js";
 import "../css/AddStudentForm.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    padding: "0 30px 30px 30px",
+
+    border: "1px solid",
+    borderRadius: 4,
     marginLeft: 50,
+    "& .row": {
+      display: "flex",
+    },
+    "& .left-side": {
+      width: 550,
+      display: "flex",
+      flexDirection: "column",
+    },
+    "& .right-side": {
+      width: 450,
+      display: "flex",
+      flexDirection: "column",
+    },
+    "& .submit": {
+      justifyContent: "end",
+    },
     "& .MuiTextField-root": {
       width: 300,
     },
@@ -56,7 +78,7 @@ function AddStudentForm() {
   }
 
   function handleCourses(courses) {
-    setDesiredSkills([]);
+    setCourses([]);
     Object.keys(courses).forEach((key) => {
       if (courses[key]) {
         setCourses((courses) => [...courses, key]);
@@ -64,50 +86,94 @@ function AddStudentForm() {
     });
   }
 
+  async function handleSubmit(event) {
+    event.preventDefault();
+    let response = await enrollStudent(
+      firstName,
+      lastName,
+      house,
+      skills,
+      desiredSkills,
+      courses
+    );
+    console.log(response);
+  }
+
   useEffect(() => {
     console.log("Skills");
-    console.log(skills);
-  }, [skills]);
+    console.log(courses);
+  }, [courses]);
 
   return (
     <FormControl className={classes.root}>
-      <Field
-        class="first-name"
-        label="First name"
-        handleInput={(firstName) => {
-          handleFirstNameChange(firstName);
-        }}
-      />
-      <Field
-        class="last-name"
-        label="Last name"
-        handleInput={(lastName) => {
-          handleLastNameChange(lastName);
-        }}
-      />
-      <HouseSelector
-        handleSelection={(house) => {
-          handleHouse(house);
-        }}
-      />
-      <SkillsCheckboxes
-        sectionLabel="Skills"
-        handleSkills={(skills) => {
-          handleSkills(skills);
-        }}
-      />
-      <SkillsCheckboxes
-        sectionLabel="Desired skills"
-        handleSkills={(skills) => {
-          handleDesiredSkills(skills);
-        }}
-      />
-      <SkillsCheckboxes
-        sectionLabel="Classes for this term"
-        handleSkills={(Courses) => {
-          handleCourses(Courses);
-        }}
-      />
+      <div className="student-form-border">
+        <div className="row">
+          <div className="left-side">
+            <p className="student-form-sections">Name</p>
+            <Field
+              class="first-name"
+              label="First name"
+              handleInput={(firstName) => {
+                handleFirstNameChange(firstName);
+              }}
+            />
+            <Field
+              class="last-name"
+              label="Last name"
+              handleInput={(lastName) => {
+                handleLastNameChange(lastName);
+              }}
+            />
+          </div>
+          <div className="right-side">
+            <p className="student-form-sections">Skills</p>
+            <SkillsCheckboxes
+              handleSkills={(skills) => {
+                handleSkills(skills);
+              }}
+            />
+          </div>
+        </div>
+        <div className="row">
+          <div className="left-side">
+            <p className="student-form-sections">Current Classes</p>
+            <SkillsCheckboxes
+              handleSkills={(Courses) => {
+                handleCourses(Courses);
+              }}
+            />
+          </div>
+          <div className="right-side">
+            <p className="student-form-sections">Desired skills</p>
+            <SkillsCheckboxes
+              handleSkills={(skills) => {
+                handleDesiredSkills(skills);
+              }}
+            />
+          </div>
+        </div>
+        <div className="row">
+          <div className="left-side">
+            <p className="student-form-sections">House</p>
+            <HouseSelector
+              handleSelection={(house) => {
+                handleHouse(house);
+              }}
+            />
+          </div>
+          <div className="right-side submit">
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={(event) => {
+                handleSubmit(event);
+              }}
+            >
+              Enroll Student
+            </Button>
+          </div>
+        </div>
+      </div>
     </FormControl>
   );
 }

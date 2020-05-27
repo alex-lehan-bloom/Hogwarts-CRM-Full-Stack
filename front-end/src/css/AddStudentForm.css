@@ -1,6 +1,3 @@
-.enroll-student-form {
-  margin-left: 60px;
-}
 .first-name {
   margin: 0 0 25px 0;
 }
@@ -9,4 +6,15 @@
 }
 .MuiSelect-select {
   min-width: 200px;
+}
+.column-1,
+.column-2 {
+  width: 40%;
+}
+
+.student-form-sections {
+  font-weight: bold;
+  text-decoration: underline;
+  margin-top: 30px;
+  margin-bottom: 5px;
 }
