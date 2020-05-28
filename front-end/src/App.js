@@ -7,11 +7,11 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./css/App.css";
 
 function App() {
-  // useEffect(async () => {
-  //   let response = await deleteStudent("5ece8239c70c4aa169780633");
-  //   console.log(response);
-  // }, []);
-  
+  useEffect(async () => {
+    let response = await deleteStudent("5ece8239c70c4aa169780633", "test");
+    console.log(response);
+  }, []);
+
   return (
     <div className="App">
       <Router>

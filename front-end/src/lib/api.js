@@ -31,9 +31,11 @@ export async function enrollStudent(
   }
 }
 
-export async function deleteStudent(student_id) {
+export async function deleteStudent(student_id, delete_password) {
   try {
-    let response = await axios.delete(`${baseURL}/student/${student_id}`);
+    let response = await axios.delete(
+      `${baseURL}/student/${student_id}?delete_key=${delete_password}`
+    );
     console.log(response);
   } catch (error) {
     console.log(error);

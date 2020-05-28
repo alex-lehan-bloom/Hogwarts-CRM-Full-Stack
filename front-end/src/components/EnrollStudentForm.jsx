@@ -12,7 +12,6 @@ import "../css/AddStudentForm.css";
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: "0 30px 30px 30px",
-
     border: "1px solid",
     borderRadius: 4,
     marginLeft: 50,
@@ -33,10 +32,10 @@ const useStyles = makeStyles((theme) => ({
       justifyContent: "end",
     },
     "& .MuiTextField-root": {
-      width: 300,
+      width: "85%",
     },
     "& .MuiInputBase-root": {
-      width: 300,
+      width: "85%",
     },
   },
 }));

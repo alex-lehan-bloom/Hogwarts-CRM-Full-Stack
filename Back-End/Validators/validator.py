@@ -1,10 +1,16 @@
 import bson
-from static_info import houses
+from static_info import houses, delete_password
 
 
 
 class Validators:
     houses = houses
+    delete_password = delete_password
+
+    def validate_delete_password(self, password):
+        if password != delete_password:
+            raise ValueError("The password you entered is incorrect.")
+
     def validate_new_student(self, student):
         try:
             self.validate_student_keys(student)

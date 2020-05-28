@@ -79,11 +79,15 @@ def add_student_route():
 
 @app.route("/student/<student_id>", methods=['DELETE'])
 def delete_student_route(student_id):
+    delete_password = request.args.get("delete_key")
+    print(delete_password)
     try:
         validator.validate_objectid(student_id)
+        validator.validate_delete_password(delete_password)
     except Exception as error:
         response = app.response_class(response=json.dumps({'Error': str(error)}), status=400,
                                       mimetype="application/json")
+        return response
     deleted_student = db.delete_student(student_id)
     if not deleted_student:
         response_body = {"Error": "Id '{}' does not exist.".format(student_id)}
