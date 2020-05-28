@@ -112,8 +112,8 @@ function AddStudentForm() {
       setAlertSeverity("success");
       setAlertOpen(true);
     } else {
-      console.log("Error");
       setAlertSeverity("error");
+      setAlertMessage(response.data.Error);
       setAlertOpen(true);
     }
   }

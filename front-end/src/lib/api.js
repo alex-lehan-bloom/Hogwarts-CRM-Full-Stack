@@ -27,6 +27,6 @@ export async function enrollStudent(
     });
     return response;
   } catch (error) {
-    return error;
+    return error.response;
   }
 }

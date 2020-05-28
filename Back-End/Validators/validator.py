@@ -21,7 +21,7 @@ class Validators:
         try:
             student['last_name']
         except Exception as e:
-            raise ValueError("Last name is required")
+            raise ValueError("Last name is required.")
         try:
             student['house']
         except Exception as e:

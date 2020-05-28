@@ -68,7 +68,7 @@ def add_student_route():
     try:
         validator.validate_new_student(content)
     except Exception as error:
-        response = app.response_class(response=json.dumps({"error": str(error)}), status=400,
+        response = app.response_class(response=json.dumps({"Error": str(error)}), status=400,
                                       mimetype="application/json")
         return response
     new_student = Student(content)
