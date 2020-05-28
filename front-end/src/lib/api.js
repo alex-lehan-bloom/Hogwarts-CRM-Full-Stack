@@ -16,15 +16,17 @@ export async function enrollStudent(
   desired_skills,
   courses
 ) {
-  
-  let response = await axios.post(`${baseURL}/student`, {
-    first_name,
-    last_name,
-    house,
-    existing_skills,
-    desired_skills,
-    courses,
-  });
-  let data = response.data;
-  return data;
+  try {
+    let response = await axios.post(`${baseURL}/student`, {
+      first_name,
+      last_name,
+      house,
+      existing_skills,
+      desired_skills,
+      courses,
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
 }
