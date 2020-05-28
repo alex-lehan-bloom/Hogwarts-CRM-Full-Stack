@@ -30,3 +30,12 @@ export async function enrollStudent(
     return error.response;
   }
 }
+
+export async function deleteStudent(student_id) {
+  try {
+    let response = await axios.delete(`${baseURL}/student/${student_id}`);
+    console.log(response);
+  } catch (error) {
+    console.log(error);
+  }
+}

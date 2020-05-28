@@ -6,6 +6,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import DeleteButton from "./DeleteButton";
 import "../css/Students.css";
 
 function StudentsList(props) {
@@ -32,6 +33,9 @@ function StudentsList(props) {
               </TableCell>
               <TableCell align="center">{student.create_date}</TableCell>
               <TableCell align="center">{student.last_update_time}</TableCell>
+              <TableCell align="center">
+                <DeleteButton />
+              </TableCell>
             </TableRow>
           ))}
         </TableBody>
