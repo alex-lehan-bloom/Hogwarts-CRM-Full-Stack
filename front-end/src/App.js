@@ -1,9 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import SideMenu from "./components/SideMenu";
-import Banner from "./components/Banner";
 import Students from "./components/Students";
-import StudentForm from "./components/AddStudentForm";
-import { enrollStudent } from "./lib/api";
+import EnrollStudent from "./components/EnrollStudent";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./css/App.css";
 
@@ -15,12 +13,10 @@ function App() {
         <div className="page-content">
           <Switch>
             <Route exact path="/students">
-              <Banner header="Students" />
               <Students />
             </Route>
             <Route exact path="/enroll-student">
-              <Banner header="Enroll student" />
-              <StudentForm />
+              <EnrollStudent />
             </Route>
           </Switch>
         </div>

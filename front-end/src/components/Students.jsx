@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import StudentsList from "./StudentsList";
+import Banner from "./Banner";
 import { getStudents } from "../lib/api";
 
 function Home() {
@@ -12,7 +13,12 @@ function Home() {
     setDisplayStudents(true);
   }, []);
 
-  return <>{displayStudents && <StudentsList students={students} />}</>;
+  return (
+    <>
+      <Banner header="Students" />
+      {displayStudents && <StudentsList students={students} />}
+    </>
+  );
 }
 
 export default Home;

@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function AddStudentForm() {
+function EnrollStudentForm() {
   const classes = useStyles();
   let [firstName, setFirstName] = useState();
   let [lastName, setLastName] = useState();
@@ -104,7 +104,6 @@ function AddStudentForm() {
       desiredSkills,
       courses
     );
-    console.log(response);
     if (response.statusText === "OK") {
       setAlertMessage(
         `${firstName} ${lastName} successfully enrolled in Hogwarts.`
@@ -118,12 +117,8 @@ function AddStudentForm() {
     }
   }
 
-  // useEffect(() => {
-  //   console.log(alertSeverity);
-  // }, [alertSeverity]);
-
   return (
-    <>
+    <div className="student-form-container">
       <FormControl className={classes.root}>
         <div className="student-form-border">
           <div className="row">
@@ -202,8 +197,8 @@ function AddStudentForm() {
           handleCloseOfAlert();
         }}
       />
-    </>
+    </div>
   );
 }
 
-export default AddStudentForm;
+export default EnrollStudentForm;
