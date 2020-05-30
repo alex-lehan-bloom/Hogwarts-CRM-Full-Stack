@@ -6,7 +6,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import DeletePopOver from "./DeletePopOver";
+import DeleteStudent from "./DeleteStudent";
 import "../css/Students.css";
 
 function StudentsList(props) {
@@ -34,10 +34,10 @@ function StudentsList(props) {
               <TableCell align="center">{student.create_date}</TableCell>
               <TableCell align="center">{student.last_update_time}</TableCell>
               <TableCell align="center">
-                <DeletePopOver
-                  studentId={student._id}
+                <DeleteStudent
                   firstName={student.first_name}
                   lastName={student.last_name}
+                  studentId={student._id}
                 />
               </TableCell>
             </TableRow>
