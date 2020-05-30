@@ -21,9 +21,10 @@ function DeletePopOver(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const [password, setPassword] = useState("");
-  let [alertOpen, setAlertOpen] = useState(false);
-  let [alertSeverity, setAlertSeverity] = useState("success");
-  let [alertMessage, setAlertMessage] = useState("");
+  const [deleteIconDisabled, setDeleteIconDisabled] = useState(true);
+  const [alertOpen, setAlertOpen] = useState(false);
+  const [alertSeverity, setAlertSeverity] = useState("success");
+  const [alertMessage, setAlertMessage] = useState("");
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -40,6 +41,16 @@ function DeletePopOver(props) {
   function handlePassword(event) {
     setPassword(event.target.value);
   }
+
+  useEffect(() => {
+    console.log(deleteIconDisabled);
+    console.log(password.length);
+    if (password.length > 0) {
+      setDeleteIconDisabled(false);
+    } else {
+      setDeleteIconDisabled(true);
+    }
+  }, [password]);
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -97,6 +108,7 @@ function DeletePopOver(props) {
             />
             <IconButton
               aria-label="delete"
+              disabled={deleteIconDisabled}
               className={classes.deleteIcon}
               onClick={(event) => {
                 handleSubmit(event);
