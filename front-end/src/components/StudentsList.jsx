@@ -34,7 +34,11 @@ function StudentsList(props) {
               <TableCell align="center">{student.create_date}</TableCell>
               <TableCell align="center">{student.last_update_time}</TableCell>
               <TableCell align="center">
-                <DeletePopOver />
+                <DeletePopOver
+                  studentId={student._id}
+                  firstName={student.first_name}
+                  lastName={student.last_name}
+                />
               </TableCell>
             </TableRow>
           ))}
