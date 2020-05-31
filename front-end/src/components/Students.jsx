@@ -7,15 +7,18 @@ function Home() {
   const [students, setStudents] = useState();
   const [displayStudents, setDisplayStudents] = useState(false);
 
-  useEffect(async () => {
-    let students = await getStudents();
-    setStudents(students);
-    setDisplayStudents(true);
+  useEffect(() => {
+    async function getStudentsFromServer() {
+      let students = await getStudents();
+      setStudents(students);
+      setDisplayStudents(true);
+    }
+    getStudentsFromServer();
   }, []);
 
   return (
     <>
-      <Banner header="Students" />
+      <Banner header="Students" displayAddStudentButton={true} />
       {displayStudents && <StudentsList students={students} />}
     </>
   );

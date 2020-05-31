@@ -2,7 +2,13 @@
   padding-top: var(--page-padding-top);
   margin: 0 10px 10px var(--main-content-padding-left);
 }
+
+.banner-header-container {
+  display: flex;
+}
+
 .banner h2 {
   font-weight: normal;
   margin: 0 0 53px 0;
 }
+

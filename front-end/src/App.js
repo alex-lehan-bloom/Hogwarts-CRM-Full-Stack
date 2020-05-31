@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import SideMenu from "./components/SideMenu";
 import Students from "./components/Students";
-import EnrollStudent from "./components/EnrollStudent";
-import { deleteStudent } from "./lib/api.js";
+import EnrollStudent from "./components/EnrollNewStudent/EnrollStudent";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./css/App.css";
 

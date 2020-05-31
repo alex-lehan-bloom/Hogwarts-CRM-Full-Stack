@@ -1,44 +1,13 @@
 import React, { useState, useEffect } from "react";
 import FormControl from "@material-ui/core/FormControl";
-import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Field from "./FormItems/Field";
 import HouseSelector from "./FormItems/HouseSelector";
 import SkillsCheckboxes from "./FormItems/SkillsCheckboxes";
-import AlertMessage from "./Alert";
-import { enrollStudent } from "../lib/api.js";
-import "../css/AddStudentForm.css";
-
-const useStyles = makeStyles((theme) => ({
-  root: {
-    padding: "0 30px 30px 30px",
-    border: "1px solid",
-    borderRadius: 4,
-    marginLeft: 50,
-    "& .row": {
-      display: "flex",
-    },
-    "& .left-side": {
-      width: 550,
-      display: "flex",
-      flexDirection: "column",
-    },
-    "& .right-side": {
-      width: 450,
-      display: "flex",
-      flexDirection: "column",
-    },
-    "& .submit": {
-      justifyContent: "end",
-    },
-    "& .MuiTextField-root": {
-      width: "85%",
-    },
-    "& .MuiInputBase-root": {
-      width: "85%",
-    },
-  },
-}));
+import AlertMessage from "../Alert";
+import { enrollStudent } from "../../lib/api.js";
+import { useStyles } from "../../css/EnrollStudentFormCSS";
+import "../../css/EnrollStudentForm.css";
 
 function EnrollStudentForm() {
   const classes = useStyles();
