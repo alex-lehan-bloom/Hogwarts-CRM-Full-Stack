@@ -1,0 +1,26 @@
+import React, { useState, useEffect } from "react";
+import Header from "../Header";
+import StudentsList from "./StudentsList";
+import { getStudents } from "../../lib/api";
+
+function StudentsPage() {
+  const [students, setStudents] = useState();
+  const [displayStudents, setDisplayStudents] = useState(false);
+
+  useEffect(() => {
+    async function getStudentsFromServer() {
+      let students = await getStudents();
+      setStudents(students);
+      setDisplayStudents(true);
+    }
+    getStudentsFromServer();
+  }, []);
+
+  return (
+    <>
+      <Header header="Existing Students" />
+      {displayStudents && <StudentsList students={students} />}
+    </>
+  );
+}
+export default StudentsPage;
