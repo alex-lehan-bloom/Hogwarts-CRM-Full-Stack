@@ -17,10 +17,10 @@ function StudentsPage() {
   }, []);
 
   return (
-    <>
+    <div className="main">
       <Header header="Existing Students" />
       {displayStudents && <StudentsList students={students} />}
-    </>
+    </div>
   );
 }
 export default StudentsPage;

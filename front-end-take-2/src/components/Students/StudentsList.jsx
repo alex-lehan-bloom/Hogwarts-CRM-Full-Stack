@@ -11,7 +11,6 @@ import Paper from "@material-ui/core/Paper";
 function StudentsList(props) {
   const useStyles = makeStyles({
     table: {
-      width: "50%",
       "& .MuiTableHead-root": {
         backgroundColor: "black",
         color: "#384d92",
