@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 import TextField from "@material-ui/core/TextField";
-import InputLabel from "@material-ui/core/InputLabel";
-import { useStyles } from "../../../css/AddStudentFormMaterialUI";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles(() => ({
+  root: {
+    margin: "10px 0 10px 0",
+  },
+}));
 
 function Field(props) {
   const classes = useStyles();

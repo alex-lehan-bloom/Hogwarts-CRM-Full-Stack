@@ -1,20 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { createMuiTheme, ThemeProvider } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
 import FormControl from "@material-ui/core/FormControl";
 import Field from "./FormComponents/Field";
 import HouseSelection from "./FormComponents/HouseSelection";
+import MagicSkills from "./FormComponents/MagicSkills";
+import Courses from "./FormComponents/Courses";
 import { enrollStudent } from "../../lib/api";
-import { makeStyles } from "@material-ui/core/styles";
+import AlertMessage from "../Alert";
 
 const useStyles = makeStyles(() => ({
   root: {
     width: "60%",
     minWidth: 440,
+    paddingBottom: 100,
   },
-  "& .MuiInputBase-root": {
-    backgroundColor: "red",
-    margin: 20,
-  },
+  enrollButton: { margin: "20px 0 20px 0" },
 }));
 
 function AddStudentForm() {
@@ -25,25 +27,14 @@ function AddStudentForm() {
   let [lastName, setLastName] = useState();
   let [house, setHouse] = useState("");
   let [skills, setSkills] = useState([]);
-  let [desiredSkills, setDesiredSkills] = useState([]);
   let [courses, setCourses] = useState([]);
   let [alertOpen, setAlertOpen] = useState(false);
   let [alertSeverity, setAlertSeverity] = useState("success");
   let [alertMessage, setAlertMessage] = useState("");
 
   useEffect(() => {
-    console.log(house);
-  }, [house]);
-
-  function handleFirstNameChange(firstName) {
-    setFirstName(firstName);
-  }
-  function handleLastNameChange(lastName) {
-    setLastName(lastName);
-  }
-  function handleHouse(house) {
-    setHouse(house);
-  }
+    console.log(courses);
+  }, [courses]);
 
   function handleCloseOfAlert() {
     setAlertOpen(false);
@@ -56,7 +47,7 @@ function AddStudentForm() {
       lastName,
       house,
       skills,
-      desiredSkills,
+      [],
       courses
     );
     if (response.statusText === "OK") {
@@ -77,25 +68,53 @@ function AddStudentForm() {
       <FormControl className={classes.root}>
         <Field
           class="first-name"
-          label="First name"
+          label="First Name"
           handleInput={(firstName) => {
-            handleFirstNameChange(firstName);
+            setFirstName(firstName);
           }}
         />
         <Field
           class="last-name"
-          label="Last name"
+          label="Last Name"
           handleInput={(lastName) => {
-            handleLastNameChange(lastName);
+            setLastName(lastName);
           }}
         />
         <HouseSelection
           className={classes.house}
           handleSelection={(house) => {
-            handleHouse(house);
+            setHouse(house);
           }}
         />
+        <MagicSkills
+          handleSkills={(skills) => {
+            setSkills(skills);
+          }}
+        />
+        <Courses
+          handleCourses={(courses) => {
+            setCourses(courses);
+          }}
+        />
+        <Button
+          className={classes.enrollButton}
+          variant="contained"
+          color="primary"
+          onClick={(event) => {
+            handleSubmit(event);
+          }}
+        >
+          Enroll Student
+        </Button>
       </FormControl>
+      <AlertMessage
+        open={alertOpen}
+        message={alertMessage}
+        severity={alertSeverity}
+        handleClose={() => {
+          handleCloseOfAlert();
+        }}
+      />
     </ThemeProvider>
   );
 }

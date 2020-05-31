@@ -3,7 +3,13 @@ import FormControl from "@material-ui/core/FormControl";
 import InputLabel from "@material-ui/core/InputLabel";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
-import { useStyles } from "../../../css/AddStudentFormMaterialUI";
+import { makeStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles(() => ({
+  root: {
+    margin: "10px 0 10px 0",
+  },
+}));
 
 function HouseSelector(props) {
   const classes = useStyles();
