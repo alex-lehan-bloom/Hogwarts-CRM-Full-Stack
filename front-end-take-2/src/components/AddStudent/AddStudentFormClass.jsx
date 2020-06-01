@@ -19,11 +19,20 @@ const useStyles = makeStyles(() => ({
   enrollButton: { margin: "20px 0 20px 0" },
 }));
 
+class AddStudent extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+  
+}
+
 function AddStudentForm() {
   const classes = useStyles();
   const theme = createMuiTheme({ palette: { type: "dark" } });
-  let [firstName, setFirstName] = useState("");
-  let [lastName, setLastName] = useState("");
+
+  let [firstName, setFirstName] = useState();
+  let [lastName, setLastName] = useState();
   let [house, setHouse] = useState("");
   let [skills, setSkills] = useState([]);
   let [courses, setCourses] = useState([]);
@@ -38,6 +47,14 @@ function AddStudentForm() {
   function handleCloseOfAlert() {
     setAlertOpen(false);
   }
+
+  const openAlert = (message, severity) => {
+    setAlertSeverity(severity);
+    setAlertMessage(message);
+    setAlertOpen(true);
+  };
+
+  function clearForm() {}
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -55,15 +72,9 @@ function AddStudentForm() {
       );
       setAlertSeverity("success");
       setAlertOpen(true);
-      setLastName("");
-      setFirstName("");
-      setHouse(null);
-      setSkills([]);
-      setCourses([]);
+      clearForm();
     } else {
-      setAlertMessage(response.data.Error);
-      setAlertSeverity("error");
-      setAlertOpen(true);
+      openAlert(response.data.Error, "error");
     }
   }
 
@@ -88,19 +99,16 @@ function AddStudentForm() {
         />
         <HouseSelection
           className={classes.house}
-          house={house}
           handleSelection={(house) => {
             setHouse(house);
           }}
         />
         <MagicSkills
-          skills={skills}
           handleSkills={(skills) => {
             setSkills(skills);
           }}
         />
         <Courses
-          courses={courses}
           handleCourses={(courses) => {
             setCourses(courses);
           }}
@@ -118,7 +126,7 @@ function AddStudentForm() {
       </FormControl>
       <AlertMessage
         open={alertOpen}
-        message={alertMessage}
+        message={openAlert}
         severity={alertSeverity}
         handleClose={() => {
           handleCloseOfAlert();

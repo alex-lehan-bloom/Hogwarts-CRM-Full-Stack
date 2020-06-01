@@ -36,10 +36,15 @@ class Validators:
     def validate_student_name(self, first_name, last_name):
         first_name = str(first_name)
         last_name = str(last_name)
-        if not first_name.isalpha() or first_name is None:
-            raise ValueError("First name is missing contains an invalid character.")
-        if not last_name.isalpha() or first_name is None:
-            raise ValueError("Last name is missing contains an invalid character.")
+        if not first_name.isalpha():
+            raise ValueError("First name contains an invalid character.")
+        if first_name is "" or first_name is None:
+            raise ValueError("First name is missing.")
+        if not last_name.isalpha():
+            raise ValueError("Last name contains an invalid character.")
+        if last_name is "" or last_name is None:
+            raise ValueError("Last name is missing.")
+
 
     def validate_house(self, student_house):
         if not student_house in self.houses:

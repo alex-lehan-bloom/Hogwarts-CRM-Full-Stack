@@ -27,6 +27,7 @@ function Field(props) {
         onChange={(event) => {
           handleInput(event);
         }}
+        value={props.value}
         label={props.label}
         variant="outlined"
       />

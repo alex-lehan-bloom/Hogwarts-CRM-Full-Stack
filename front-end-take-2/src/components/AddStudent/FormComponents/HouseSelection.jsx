@@ -31,7 +31,7 @@ function HouseSelector(props) {
       <Select
         labelId="house"
         className={classes.root}
-        value={house}
+        value={props.house}
         onChange={(event) => {
           handleHouse(event);
         }}

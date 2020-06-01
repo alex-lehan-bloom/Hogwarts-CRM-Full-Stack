@@ -75,7 +75,7 @@ function Courses(props) {
           labelId="magic-skills"
           id="magic-skills"
           multiple
-          value={courses}
+          value={props.courses}
           onChange={handleChange}
           input={<Input id="select-multiple-chip" />}
           renderValue={(selected) => (

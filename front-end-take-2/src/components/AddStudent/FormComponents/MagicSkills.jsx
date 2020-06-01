@@ -80,7 +80,7 @@ function MagicSkills(props) {
           labelId="magic-skills"
           id="magic-skills"
           multiple
-          value={skills}
+          value={props.skills}
           onChange={handleChange}
           input={<Input id="select-multiple-chip" />}
           renderValue={(selected) => (
