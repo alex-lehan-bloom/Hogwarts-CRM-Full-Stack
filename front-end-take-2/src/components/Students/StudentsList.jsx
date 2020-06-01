@@ -1,5 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { NavLink } from "react-router-dom";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -7,6 +8,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import "../../css/StudentsList.css";
 
 function StudentsList(props) {
   const useStyles = makeStyles({
@@ -36,10 +38,17 @@ function StudentsList(props) {
         </TableHead>
         <TableBody>
           {props.students.map((student) => (
-            <TableRow key={student.id}>
+            <TableRow key={student._id}>
               <TableCell component="th" scope="row" align="center">
-                {student.first_name} {student.last_name}
+                <NavLink
+                  exact
+                  to={`/student/${student._id}`}
+                  className="link-to-student-page"
+                >
+                  {student.first_name} {student.last_name}
+                </NavLink>
               </TableCell>
+
               <TableCell align="center"> {student.house}</TableCell>
               <TableCell align="center">{student.create_date}</TableCell>
               <TableCell align="center">{student.last_update_time}</TableCell>

@@ -13,7 +13,7 @@ export async function getStudentById(studentId) {
     let response = await axios.get(`${baseURL}/student/${studentId}`);
     return response;
   } catch (error) {
-    console.log(error);
+    return error.response;
   }
 }
 
@@ -40,10 +40,33 @@ export async function enrollStudent(
   }
 }
 
-export async function deleteStudent(student_id, delete_password) {
+export async function updateStudent(
+  studentId,
+  first_name,
+  last_name,
+  house,
+  existing_skills,
+  desired_skills,
+  courses
+) {
+  let response = await axios.post(
+    `${baseURL}/student/update_student/${studentId}`,
+    {
+      first_name,
+      last_name,
+      house,
+      existing_skills,
+      desired_skills,
+      courses,
+    }
+  );
+  return response;
+}
+
+export async function deleteStudent(studentId, deletePassword) {
   try {
     let response = await axios.delete(
-      `${baseURL}/student/${student_id}?delete_key=${delete_password}`
+      `${baseURL}/student/${studentId}?delete_key=${deletePassword}`
     );
     return response;
   } catch (error) {

@@ -127,7 +127,7 @@ def set_student_skills_route(student_id):
         response = app.response_class(response=json.dumps(response_body), status=404, mimetype="application/json")
         return response
     else:
-        updates_to_user = request.form
+        updates_to_user = request.json
         print(updates_to_user)
         try:
             updated_student = db.update_student(student_id, updates_to_user)

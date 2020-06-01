@@ -7,7 +7,7 @@ import Field from "./FormComponents/Field";
 import HouseSelection from "./FormComponents/HouseSelection";
 import MagicSkills from "./FormComponents/MagicSkills";
 import Courses from "./FormComponents/Courses";
-import { enrollStudent } from "../../lib/api";
+import { enrollStudent, updateStudent } from "../../lib/api";
 import AlertMessage from "../Alert";
 
 const useStyles = makeStyles(() => ({
@@ -35,6 +35,7 @@ function StudentForm(props) {
   useEffect(() => {
     const { student } = props;
     if (student !== undefined) {
+      setStudent(student);
       setFirstName(student.first_name);
       setLastName(student.last_name);
       setHouse(student.house);
@@ -79,7 +80,16 @@ function StudentForm(props) {
   }
 
   async function handleSubmitExistingStudent() {
-    console.log("test");
+    let response = await updateStudent(
+      student._id,
+      firstName,
+      lastName,
+      house,
+      skills,
+      [],
+      courses
+    );
+    console.log(response);
   }
 
   return (
