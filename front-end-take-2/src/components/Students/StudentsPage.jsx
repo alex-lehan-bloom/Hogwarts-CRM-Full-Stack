@@ -10,6 +10,7 @@ function StudentsPage() {
   useEffect(() => {
     async function getStudentsFromServer() {
       let students = await getStudents();
+
       setStudents(students);
       setDisplayStudents(true);
     }

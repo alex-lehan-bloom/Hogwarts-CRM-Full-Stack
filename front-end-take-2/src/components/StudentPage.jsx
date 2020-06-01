@@ -16,7 +16,6 @@ function StudentPage(props) {
     async function getStudent() {
       const { match } = props;
       let response = await getStudentById(match.params.id);
-      console.log(response);
       if (response.statusText === "OK") {
         setStudent(response.data);
         setDisplay(true);

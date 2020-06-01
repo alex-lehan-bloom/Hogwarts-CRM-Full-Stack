@@ -1,5 +1,9 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
+import {
+  makeStyles,
+  createMuiTheme,
+  ThemeProvider,
+} from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -16,7 +20,17 @@ function StudentsList(props) {
         backgroundColor: "black",
         color: "#384d92",
       },
+      "& .MuiTableCell-body": {},
+      "& .house-table-cell": {
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      },
+      "& .house-name": { marginRight: 10 },
+
       "& .MuiTableCell-head": {
+        fontFamily: "'Roboto', sans-serif",
+        fontSize: 17,
         fontWeight: "bold",
         color: "white",
       },
@@ -24,38 +38,49 @@ function StudentsList(props) {
   });
   const classes = useStyles();
 
-  return (
-    <TableContainer component={Paper} className={classes.table}>
-      <Table aria-label="simple table">
-        <TableHead>
-          <TableRow>
-            <TableCell align="center">Student</TableCell>
-            <TableCell align="center">House</TableCell>
-            <TableCell align="center">Enrollment Date</TableCell>
-            <TableCell align="center">Last Updated</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {props.students.map((student) => (
-            <TableRow
-              key={student._id}
-              numeric
-              component="a"
-              className="student-table-row"
-              href={`/student/${student._id}`}
-            >
-              <TableCell component="th" scope="row" align="center">
-                {student.first_name} {student.last_name}
-              </TableCell>
+  const theme = createMuiTheme({
+    typography: {
+      fontFamily: '"Caveat", cursive',
+      fontSize: 21,
+    },
+  });
 
-              <TableCell align="center">{student.house}</TableCell>
-              <TableCell align="center">{student.create_date}</TableCell>
-              <TableCell align="center">{student.last_update_time}</TableCell>
+  return (
+    <ThemeProvider theme={theme}>
+      <TableContainer component={Paper} className={classes.table}>
+        <Table aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell align="center">Student</TableCell>
+              <TableCell align="center">House</TableCell>
+              <TableCell align="center">Enrollment Date</TableCell>
+              <TableCell align="center">Last Updated</TableCell>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </TableContainer>
+          </TableHead>
+          <TableBody>
+            {props.students.map((student) => (
+              <TableRow
+                key={student._id}
+                numeric
+                component="a"
+                className="student-table-row"
+                href={`/student/${student._id}`}
+              >
+                <TableCell component="th" scope="row" align="center">
+                  <img src="images/gryfindor.jfif" className="house-image" />
+                  {student.first_name} {student.last_name}
+                </TableCell>
+                <TableCell align="center">
+                  <p className="house-name">{student.house}</p>
+                </TableCell>
+                <TableCell align="center">{student.create_date}</TableCell>
+                <TableCell align="center">{student.last_update_time}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </ThemeProvider>
   );
 }
 

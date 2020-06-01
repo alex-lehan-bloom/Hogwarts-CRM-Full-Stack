@@ -3,9 +3,38 @@ import axios from "axios";
 const baseURL = "http://localhost:5000";
 
 export async function getStudents() {
-  let response = await axios.get(`${baseURL}/students`);
-  let data = response.data;
-  return data;
+  try {
+    let response = await axios.get(`${baseURL}/students`);
+    let students = response.data;
+    for (let i = 0; i < students.length; i++) {
+      let createDate = new Date(students[i].create_date);
+      createDate =
+        createDate.getFullYear() +
+        "/" +
+        (createDate.getMonth() + 1) +
+        "/" +
+        createDate.getDate();
+      students[i].create_date = createDate;
+      let lastUpdate = new Date(students[i].last_update_time);
+      lastUpdate =
+        lastUpdate.getFullYear() +
+        "/" +
+        (lastUpdate.getMonth() + 1) +
+        "/" +
+        lastUpdate.getDate() +
+        " at " +
+        lastUpdate.getHours() +
+        ":" +
+        lastUpdate.getMinutes() +
+        ":" +
+        lastUpdate.getSeconds();
+      students[i].last_update_time = lastUpdate.toString();
+    }
+
+    return students;
+  } catch (error) {
+    return error.response;
+  }
 }
 
 export async function getStudentById(studentId) {
