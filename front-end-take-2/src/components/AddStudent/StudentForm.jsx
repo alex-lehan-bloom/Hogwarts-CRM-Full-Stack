@@ -89,7 +89,15 @@ function StudentForm(props) {
       [],
       courses
     );
-    console.log(response);
+    if (response.statusText === "OK") {
+      setAlertMessage(`${firstName} ${lastName} successfully updated.`);
+      setAlertSeverity("success");
+      setAlertOpen(true);
+    } else {
+      setAlertMessage(response.data.Error);
+      setAlertSeverity("error");
+      setAlertOpen(true);
+    }
   }
 
   return (
