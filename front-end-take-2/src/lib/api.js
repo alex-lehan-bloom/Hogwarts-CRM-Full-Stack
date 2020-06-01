@@ -8,6 +8,15 @@ export async function getStudents() {
   return data;
 }
 
+export async function getStudentById(studentId) {
+  try {
+    let response = await axios.get(`${baseURL}/student/${studentId}`);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export async function enrollStudent(
   first_name,
   last_name,

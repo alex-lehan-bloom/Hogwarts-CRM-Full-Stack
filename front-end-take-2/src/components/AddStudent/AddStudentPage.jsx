@@ -1,12 +1,12 @@
 import React from "react";
 import Header from "../Header";
-import AddStudentForm from "./AddStudentForm";
+import StudentForm from "./StudentForm";
 
 function AddStudentPage() {
   return (
     <div className="main">
       <Header header="Enroll Student" />
-      <AddStudentForm />
+      <StudentForm />
     </div>
   );
 }

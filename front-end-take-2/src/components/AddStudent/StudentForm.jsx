@@ -19,20 +19,12 @@ const useStyles = makeStyles(() => ({
   enrollButton: { margin: "20px 0 20px 0" },
 }));
 
-class AddStudent extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-  
-}
-
-function AddStudentForm() {
+function StudentForm(props) {
   const classes = useStyles();
   const theme = createMuiTheme({ palette: { type: "dark" } });
-
-  let [firstName, setFirstName] = useState();
-  let [lastName, setLastName] = useState();
+  let [student, setStudent] = useState({});
+  let [firstName, setFirstName] = useState("");
+  let [lastName, setLastName] = useState("");
   let [house, setHouse] = useState("");
   let [skills, setSkills] = useState([]);
   let [courses, setCourses] = useState([]);
@@ -41,22 +33,23 @@ function AddStudentForm() {
   let [alertMessage, setAlertMessage] = useState("");
 
   useEffect(() => {
-    console.log(courses);
-  }, [courses]);
+    const { student } = props;
+    if (student !== undefined) {
+      setFirstName(student.first_name);
+      setLastName(student.last_name);
+      setHouse(student.house);
+      setSkills(student.existing_skills);
+      setCourses(student.courses);
+    } else {
+      setStudent(false);
+    }
+  }, []);
 
   function handleCloseOfAlert() {
     setAlertOpen(false);
   }
 
-  const openAlert = (message, severity) => {
-    setAlertSeverity(severity);
-    setAlertMessage(message);
-    setAlertOpen(true);
-  };
-
-  function clearForm() {}
-
-  async function handleSubmit(event) {
+  async function handleSubmitNewStudent(event) {
     event.preventDefault();
     let response = await enrollStudent(
       firstName,
@@ -66,16 +59,27 @@ function AddStudentForm() {
       [],
       courses
     );
+
     if (response.statusText === "OK") {
       setAlertMessage(
         `${firstName} ${lastName} successfully enrolled in Hogwarts.`
       );
       setAlertSeverity("success");
       setAlertOpen(true);
-      clearForm();
+      setLastName("");
+      setFirstName("");
+      setHouse(null);
+      setSkills([]);
+      setCourses([]);
     } else {
-      openAlert(response.data.Error, "error");
+      setAlertMessage(response.data.Error);
+      setAlertSeverity("error");
+      setAlertOpen(true);
     }
+  }
+
+  async function handleSubmitExistingStudent() {
+    console.log("test");
   }
 
   return (
@@ -99,34 +103,51 @@ function AddStudentForm() {
         />
         <HouseSelection
           className={classes.house}
+          house={house}
           handleSelection={(house) => {
             setHouse(house);
           }}
         />
         <MagicSkills
+          skills={skills}
           handleSkills={(skills) => {
             setSkills(skills);
           }}
         />
         <Courses
+          courses={courses}
           handleCourses={(courses) => {
             setCourses(courses);
           }}
         />
-        <Button
-          className={classes.enrollButton}
-          variant="contained"
-          color="primary"
-          onClick={(event) => {
-            handleSubmit(event);
-          }}
-        >
-          Enroll Student
-        </Button>
+        {!student && (
+          <Button
+            className={classes.enrollButton}
+            variant="contained"
+            color="primary"
+            onClick={(event) => {
+              handleSubmitNewStudent(event);
+            }}
+          >
+            Enroll Student
+          </Button>
+        )}
+        {student && (
+          <Button
+            className={classes.enrollButton}
+            variant="contained"
+            color="primary"
+            onClick={(event) => {
+              handleSubmitExistingStudent(event);
+            }}
+          >
+            Update Student
+          </Button>
+        )}
       </FormControl>
       <AlertMessage
         open={alertOpen}
-        message={openAlert}
+        message={alertMessage}
         severity={alertSeverity}
         handleClose={() => {
           handleCloseOfAlert();
@@ -136,4 +157,4 @@ function AddStudentForm() {
   );
 }
 
-export default AddStudentForm;
+export default StudentForm;
