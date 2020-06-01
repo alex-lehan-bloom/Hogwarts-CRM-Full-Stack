@@ -1,3 +1,6 @@
+:root {
+  --hover-color: #384d92;
+}
 body {
   background-color: #282c34;
   font-family: "Caveat", cursive;

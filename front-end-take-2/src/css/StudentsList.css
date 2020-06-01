@@ -1,4 +1,9 @@
-.link-to-student-page {
-  color: inherit;
-  text-decoration: inherit;
+.student-table-row {
+  text-decoration: none;
+}
+
+.student-table-row:hover {
+  -moz-box-shadow: 0 0 20px #ccc;
+  -webkit-box-shadow: 0 0 20px #ccc;
+  box-shadow: 0 0 20px #ccc;
 }
