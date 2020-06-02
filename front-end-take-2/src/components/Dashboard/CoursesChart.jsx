@@ -3,7 +3,7 @@ import { getStudentSkills } from "../../lib/api.js";
 import { Bar, Line, Pie } from "react-chartjs-2";
 import "../../css/ChartMagicSkills.css";
 
-function MagicSkills(props) {
+function Courses(props) {
   const [chartData, setChartData] = useState();
 
   useEffect(() => {
@@ -59,4 +59,4 @@ function MagicSkills(props) {
   );
 }
 
-export default MagicSkills;
+export default Courses;

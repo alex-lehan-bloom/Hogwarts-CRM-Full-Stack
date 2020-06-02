@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Header from "../Header";
 import NumberStudents from "./NumberStudents";
 import MagicSkills from "./MagicSkills";
+import Courses from "./CoursesChart";
 import { getStudents } from "../../lib/api.js";
 import "../../css/Dashboard.css";
 
@@ -20,8 +21,12 @@ function Dashboard() {
     <>
       <Header header="Dashboard" />
       <NumberStudents students={students} />
-      <h2 className="dashboard-header chart-header">Magic Skills</h2>
+      <h2 className="dashboard-header">
+        Number of Students with Each Magic Skill
+      </h2>
       <MagicSkills students={students} />
+      <h2 className="dashboard-header">Number of Students in Each Class</h2>
+      <Courses />
     </>
   );
 }

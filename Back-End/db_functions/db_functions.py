@@ -41,6 +41,13 @@ class DbFunctions:
             return i['num_students']
         return 0
 
+    def get_students_who_have_class(self, course):
+        students_in_course = db.students.aggregate(
+            [{'$match': {"courses": course}}, {"$count": "num_students"}])
+        for i in students_in_course:
+            return i['num_students']
+        return 0
+
     def get_students_who_want_skill(self, skill):
         students_with_want_skill = db.students.aggregate(
             [{'$match': {"desired_skills": skill}}, {"$count": "num_students"}])
