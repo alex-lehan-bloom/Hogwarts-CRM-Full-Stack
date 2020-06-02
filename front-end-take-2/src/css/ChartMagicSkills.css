@@ -1,0 +1,11 @@
+.chart-magic-skills {
+  width: 70%;
+  background-color: white;
+  margin-top: 20px;
+  border-radius: 4px;
+  padding: 20px;
+  padding-top: 0;
+  -moz-box-shadow: 0 0 10px #ccc;
+  -webkit-box-shadow: 0 0 10px #ccc;
+  box-shadow: 0 0 10px #ccc;
+}

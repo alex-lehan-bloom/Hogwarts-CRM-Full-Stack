@@ -3,6 +3,7 @@ import NavBar from "./components/NavBar";
 import StudentsPage from "./components/Students/StudentsPage";
 import AddStudentPage from "./components/AddStudent/AddStudentPage";
 import StudentPage from "./components/StudentPage";
+import Dashboard from "./components/Dashboard/Dashboard";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./css/App.css";
 
@@ -13,6 +14,9 @@ function App() {
         <NavBar />
         <div className="page-content">
           <Switch>
+            <Route exact path="/dashboard">
+              <Dashboard />
+            </Route>
             <Route exact path="/students">
               <StudentsPage />
             </Route>

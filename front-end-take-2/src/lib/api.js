@@ -106,3 +106,12 @@ export async function deleteStudent(studentId, deletePassword) {
     return error.response;
   }
 }
+
+export async function getStudentSkills() {
+  try {
+    let response = await axios.get(`${baseURL}/students/skills`);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+}

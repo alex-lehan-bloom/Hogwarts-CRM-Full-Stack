@@ -3,6 +3,7 @@ from flask_cors import CORS
 from student import Student
 from db_functions import DbFunctions
 from validator import Validators
+from static_info import magic_skills
 import json
 
 app = Flask(__name__)
@@ -62,6 +63,15 @@ def get_students_by_skill_route():
     skill = request.args.get('skill')
     print(skill)
 
+@app.route("/students/skills")
+def get_skills_for_each_student():
+    skills = {}
+    for i in magic_skills:
+        count = db.get_students_who_have_skill(i)
+        skills[i] = count
+    response = app.response_class(response=json.dumps(skills), status=200, mimetype="application/json")
+    return response
+    
 @app.route("/student", methods=['POST'])
 def add_student_route():
     content = request.json
