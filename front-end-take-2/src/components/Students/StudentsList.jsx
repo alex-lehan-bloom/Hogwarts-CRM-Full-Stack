@@ -20,14 +20,6 @@ function StudentsList(props) {
         backgroundColor: "black",
         color: "#384d92",
       },
-      "& .MuiTableCell-body": {},
-      "& .house-table-cell": {
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      },
-      "& .house-name": { marginRight: 10 },
-
       "& .MuiTableCell-head": {
         fontFamily: "'Roboto', sans-serif",
         fontSize: 17,
@@ -63,16 +55,14 @@ function StudentsList(props) {
                 key={student._id}
                 numeric
                 component="a"
+                rel="noreferrer"
                 className="student-table-row"
                 href={`/student/${student._id}`}
               >
                 <TableCell component="th" scope="row" align="center">
-                  <img src="images/gryfindor.jfif" className="house-image" />
                   {student.first_name} {student.last_name}
                 </TableCell>
-                <TableCell align="center">
-                  <p className="house-name">{student.house}</p>
-                </TableCell>
+                <TableCell align="center">{student.house}</TableCell>
                 <TableCell align="center">{student.create_date}</TableCell>
                 <TableCell align="center">{student.last_update_time}</TableCell>
               </TableRow>

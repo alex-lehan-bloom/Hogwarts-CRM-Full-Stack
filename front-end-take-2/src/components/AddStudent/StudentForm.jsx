@@ -7,8 +7,10 @@ import Field from "./FormComponents/Field";
 import HouseSelection from "./FormComponents/HouseSelection";
 import MagicSkills from "./FormComponents/MagicSkills";
 import Courses from "./FormComponents/Courses";
+import DeleteStudent from "../DeleteStudent";
 import { enrollStudent, updateStudent } from "../../lib/api";
 import AlertMessage from "../Alert";
+import { Redirect } from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -21,7 +23,9 @@ const useStyles = makeStyles(() => ({
 
 function StudentForm(props) {
   const classes = useStyles();
-  const theme = createMuiTheme({ palette: { type: "dark" } });
+  const theme = createMuiTheme({
+    palette: { type: "dark" },
+  });
   let [student, setStudent] = useState({});
   let [firstName, setFirstName] = useState("");
   let [lastName, setLastName] = useState("");
@@ -31,6 +35,7 @@ function StudentForm(props) {
   let [alertOpen, setAlertOpen] = useState(false);
   let [alertSeverity, setAlertSeverity] = useState("success");
   let [alertMessage, setAlertMessage] = useState("");
+  let [redirectOnDelete, setRedirectOnDelete] = useState(false);
 
   useEffect(() => {
     const { student } = props;
@@ -79,7 +84,7 @@ function StudentForm(props) {
     }
   }
 
-  async function handleSubmitExistingStudent() {
+  async function handleExistingStudent() {
     let response = await updateStudent(
       student._id,
       firstName,
@@ -100,44 +105,62 @@ function StudentForm(props) {
     }
   }
 
+  function handleDeleteResponse(response) {
+    if (response.statusText === "OK") {
+      setAlertMessage(`${firstName} ${lastName} was successfully deleted!`);
+      setAlertSeverity("success");
+      setAlertOpen(true);
+      setTimeout(() => {
+        setRedirectOnDelete(true);
+      }, 2000);
+    } else {
+      setAlertMessage(response.data.Error);
+      setAlertSeverity("error");
+      setAlertOpen(true);
+    }
+  }
+
   return (
-    <ThemeProvider theme={theme}>
+    <>
       <FormControl className={classes.root}>
-        <Field
-          class="first-name"
-          label="First Name"
-          value={firstName}
-          handleInput={(firstName) => {
-            setFirstName(firstName);
-          }}
-        />
-        <Field
-          class="last-name"
-          label="Last Name"
-          value={lastName}
-          handleInput={(lastName) => {
-            setLastName(lastName);
-          }}
-        />
-        <HouseSelection
-          className={classes.house}
-          house={house}
-          handleSelection={(house) => {
-            setHouse(house);
-          }}
-        />
-        <MagicSkills
-          skills={skills}
-          handleSkills={(skills) => {
-            setSkills(skills);
-          }}
-        />
-        <Courses
-          courses={courses}
-          handleCourses={(courses) => {
-            setCourses(courses);
-          }}
-        />
+        <ThemeProvider theme={theme}>
+          <Field
+            class="first-name"
+            label="First Name"
+            value={firstName}
+            handleInput={(firstName) => {
+              setFirstName(firstName);
+            }}
+          />
+          <Field
+            class="last-name"
+            label="Last Name"
+            value={lastName}
+            handleInput={(lastName) => {
+              setLastName(lastName);
+            }}
+          />
+          <HouseSelection
+            className={classes.house}
+            house={house}
+            handleSelection={(house) => {
+              setHouse(house);
+            }}
+          />
+          <MagicSkills
+            skills={skills}
+            handleSkills={(skills) => {
+              setSkills(skills);
+            }}
+          />
+          <Courses
+            courses={courses}
+            handleCourses={(courses) => {
+              setCourses(courses);
+            }}
+          />
+        </ThemeProvider>
+
         {!student && (
           <Button
             className={classes.enrollButton}
@@ -151,16 +174,35 @@ function StudentForm(props) {
           </Button>
         )}
         {student && (
-          <Button
-            className={classes.enrollButton}
-            variant="contained"
-            color="primary"
-            onClick={(event) => {
-              handleSubmitExistingStudent(event);
-            }}
-          >
-            Update Student
-          </Button>
+          <>
+            <Button
+              className={classes.enrollButton}
+              variant="contained"
+              color="primary"
+              onClick={(event) => {
+                handleExistingStudent(event);
+              }}
+            >
+              Update Student
+            </Button>
+            {/* <Button
+              className={classes.enrollButton}
+              variant="contained"
+              className="delete-button"
+              color="secondary"
+              onClick={(event) => {
+                handleDeleteStudent(event);
+              }}
+            >
+              Delete Student
+            </Button> */}
+            <DeleteStudent
+              studentId={student._id}
+              handleDelete={(response) => {
+                handleDeleteResponse(response);
+              }}
+            />
+          </>
         )}
       </FormControl>
       <AlertMessage
@@ -171,7 +213,8 @@ function StudentForm(props) {
           handleCloseOfAlert();
         }}
       />
-    </ThemeProvider>
+      {redirectOnDelete && <Redirect to="/students" />}
+    </>
   );
 }
 
