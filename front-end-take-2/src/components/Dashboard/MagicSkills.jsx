@@ -16,7 +16,7 @@ function MagicSkills(props) {
         labels: keys,
         datasets: [
           {
-            label: "Number of students with each magic skill",
+            label: "Number of students in each course",
             data: values,
             backgroundColor: [
               "rgb(21,71,148)",

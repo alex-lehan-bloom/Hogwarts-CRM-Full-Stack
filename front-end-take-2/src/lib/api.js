@@ -115,3 +115,12 @@ export async function getStudentSkills() {
     console.log(error);
   }
 }
+
+export async function getStudentsInEachCourse() {
+  try {
+    let response = await axios.get(`${baseURL}/students/courses`);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+}
