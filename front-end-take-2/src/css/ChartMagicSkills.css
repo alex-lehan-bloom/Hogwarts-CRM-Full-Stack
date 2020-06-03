@@ -1,4 +1,4 @@
-.chart-magic-skills {
+.chart {
   width: 60%;
   background-color: rgb(245, 243, 243);
   margin-top: 15px;
@@ -6,7 +6,4 @@
   border-radius: 4px;
   padding: 20px;
   padding-top: -10px;
-  /* -moz-box-shadow: 0 0 10px #ccc;
-  -webkit-box-shadow: 0 0 10px #ccc;
-  box-shadow: 0 0 10px #ccc; */
 }

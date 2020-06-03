@@ -41,17 +41,25 @@ function Courses(props) {
 
   return (
     <>
-      <div className="chart-magic-skills">
+      <div className="chart">
         <Bar
           data={chartData}
           options={{
+            scales: {
+              yAxes: [
+                {
+                  ticks: {
+                    beginAtZero: true,
+                  },
+                },
+              ],
+            },
             title: {
               display: true,
               fontSize: 25,
             },
             legend: { display: true, position: "top" },
           }}
-          className="chart"
         />
       </div>
     </>

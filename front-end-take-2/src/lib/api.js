@@ -9,19 +9,22 @@ export async function getStudents() {
     for (let i = 0; i < students.length; i++) {
       let createDate = new Date(students[i].create_date);
       createDate =
-        createDate.getFullYear() +
+        createDate.getMonth() +
+        1 +
         "/" +
-        (createDate.getMonth() + 1) +
         "/" +
-        createDate.getDate();
+        createDate.getDate() +
+        "/" +
+        createDate.getFullYear();
       students[i].create_date = createDate;
       let lastUpdate = new Date(students[i].last_update_time);
       lastUpdate =
-        lastUpdate.getFullYear() +
-        "/" +
-        (lastUpdate.getMonth() + 1) +
+        lastUpdate.getMonth() +
+        1 +
         "/" +
         lastUpdate.getDate() +
+        "/" +
+        lastUpdate.getFullYear() +
         " at " +
         lastUpdate.getHours() +
         ":" +
@@ -119,6 +122,15 @@ export async function getStudentSkills() {
 export async function getStudentsInEachCourse() {
   try {
     let response = await axios.get(`${baseURL}/students/courses`);
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export async function getStudentsEnrolledOnDate(date) {
+  try {
+    let response = await axios.get(`${baseURL}/students?date=${date}`);
     return response;
   } catch (error) {
     console.log(error);

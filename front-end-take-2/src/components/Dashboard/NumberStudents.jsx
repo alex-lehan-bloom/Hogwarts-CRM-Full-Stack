@@ -9,9 +9,6 @@ function NumberStudents(props) {
 
   return (
     <>
-      <h2 className="dashboard-header">
-        Number of Students Enrolled at Hogwarts
-      </h2>
       <h2>{numStudents}</h2>
     </>
   );
