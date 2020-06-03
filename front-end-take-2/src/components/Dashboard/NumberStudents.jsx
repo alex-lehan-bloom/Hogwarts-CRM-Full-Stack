@@ -9,7 +9,7 @@ function NumberStudents(props) {
 
   return (
     <>
-      <h2>{numStudents}</h2>
+      <h3>{numStudents}</h3>
     </>
   );
 }

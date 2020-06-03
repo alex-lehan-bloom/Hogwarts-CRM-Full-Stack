@@ -12,13 +12,7 @@ function Dashboard() {
   const dateToString =
     date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
   const [students, setStudents] = useState([]);
-  const [enrollmentDate, setEnrollmentDate] = useState(dateToString);
-
-  function handleDate(date) {
-    const dateToString =
-      date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
-    setEnrollmentDate(dateToString);
-  }
+  const [numStudentsEnrolledOnDate, setNumStudentsEnrolledOnDate] = useState(0);
 
   useEffect(() => {
     async function getStudentsFromServer() {
@@ -31,18 +25,23 @@ function Dashboard() {
   return (
     <>
       <Header header="Dashboard" />
+
       <h2 className="dashboard-header">
         Number of Students Enrolled at Hogwarts
       </h2>
       <NumberStudents students={students} />
+
       <h2 className="dashboard-header">
-        Number of Students Enrolled on {enrollmentDate.toString()}
+        Number of Students Enrolled on
+        <span>
+          <EnrollmentDatePicker
+            handleNumStudents={(students) => {
+              setNumStudentsEnrolledOnDate(students);
+            }}
+          />
+        </span>
       </h2>
-      <EnrollmentDatePicker
-        handleDate={(date) => {
-          handleDate(date);
-        }}
-      />
+      <h2>{numStudentsEnrolledOnDate}</h2>
       <h2 className="dashboard-header">
         Number of Students with Each Magic Skill
       </h2>

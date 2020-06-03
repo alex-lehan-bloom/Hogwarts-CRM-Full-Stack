@@ -20,7 +20,6 @@ function EnrollmentDatePicker(props) {
   }, []);
 
   useEffect(() => {
-    props.handleDate(selectedDate);
     async function getStudentsEnrollredOnDateFromServer() {
       let students = await getStudentsEnrolledOnDate(
         selectedDate.toISOString().substr(0, 10)
@@ -29,6 +28,10 @@ function EnrollmentDatePicker(props) {
     }
     getStudentsEnrollredOnDateFromServer();
   }, [selectedDate]);
+
+  useEffect(() => {
+    props.handleNumStudents(studentsEnrolledOnDate);
+  }, [studentsEnrolledOnDate]);
 
   return (
     <>
@@ -41,7 +44,6 @@ function EnrollmentDatePicker(props) {
         maxDate={new Date()}
         className="date-picker"
       />
-      <h2>{studentsEnrolledOnDate}</h2>
     </>
   );
 }
