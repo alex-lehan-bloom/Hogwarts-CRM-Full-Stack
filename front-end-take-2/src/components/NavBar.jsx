@@ -29,6 +29,14 @@ function NavBar() {
       >
         Enroll student
       </NavLink>
+      <NavLink
+        exact
+        to="/profile"
+        className="navbar-link"
+        activeClassName="navbar-link-active"
+      >
+        Profile
+      </NavLink>
       <h1>Hogwarts Administrator Console</h1>
     </div>
   );

@@ -10,7 +10,6 @@ import Fade from "@material-ui/core/Fade";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import { deleteStudent } from "../lib/api.js";
-import { BrowserRouter } from "react-router-dom";
 import { withRouter } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({

@@ -185,17 +185,7 @@ function StudentForm(props) {
             >
               Update Student
             </Button>
-            {/* <Button
-              className={classes.enrollButton}
-              variant="contained"
-              className="delete-button"
-              color="secondary"
-              onClick={(event) => {
-                handleDeleteStudent(event);
-              }}
-            >
-              Delete Student
-            </Button> */}
+
             <DeleteStudent
               studentId={student._id}
               handleDelete={(response) => {

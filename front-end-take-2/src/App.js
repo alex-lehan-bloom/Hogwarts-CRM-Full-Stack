@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
+import Register from "./components/Login/Register";
 import NavBar from "./components/NavBar";
 import StudentsPage from "./components/Students/StudentsPage";
 import AddStudentPage from "./components/AddStudent/AddStudentPage";
 import StudentPage from "./components/StudentPage";
 import Dashboard from "./components/Dashboard/Dashboard";
+import Login from "./components/Login/Login";
+import Profile from "./components/Profile/ProfilePage";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./css/App.css";
 
@@ -14,6 +17,12 @@ function App() {
         <NavBar />
         <div className="page-content">
           <Switch>
+            <Route exact path="/login">
+              <Login />
+            </Route>
+            <Route exact path="/register">
+              <Register />
+            </Route>
             <Route exact path="/dashboard">
               <Dashboard />
             </Route>
@@ -25,6 +34,9 @@ function App() {
             </Route>
             <Route path="/student/:id">
               <StudentPage />
+            </Route>
+            <Route path="/profile">
+              <Profile />
             </Route>
           </Switch>
         </div>

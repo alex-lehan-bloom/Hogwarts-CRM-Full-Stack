@@ -8,9 +8,6 @@ import { getStudents } from "../../lib/api.js";
 import "../../css/Dashboard.css";
 
 function Dashboard() {
-  const date = new Date();
-  const dateToString =
-    date.getMonth() + 1 + "/" + date.getDate() + "/" + date.getFullYear();
   const [students, setStudents] = useState([]);
   const [numStudentsEnrolledOnDate, setNumStudentsEnrolledOnDate] = useState(0);
 
@@ -25,7 +22,6 @@ function Dashboard() {
   return (
     <>
       <Header header="Dashboard" />
-
       <h2 className="dashboard-header">
         Number of Students Enrolled at Hogwarts
       </h2>

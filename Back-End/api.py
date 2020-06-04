@@ -1,15 +1,76 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from flask_cors import CORS
+from datetime import datetime
 from student import Student
 from db_functions import DbFunctions
 from validator import Validators
 from static_info import magic_skills, courses
+from flask_bcrypt import Bcrypt
+from flask_jwt_extended import JWTManager, create_access_token
+from flask_pymongo import PyMongo
 import json
 
 app = Flask(__name__)
 CORS(app)
 db = DbFunctions()
 validator = Validators()
+
+app.config['MONGO_DBNAME'] = 'Hogwarts'
+app.config['MONGO_URI'] = 'mongodb://localhost:27017/Hogwarts'
+app.config['JWT_SECRET_KEY'] = 'secret'
+
+mongo = PyMongo(app)
+bcrypt = Bcrypt(app)
+jwt = JWTManager(app)
+
+
+
+@app.route('/users/register', methods=["POST"])
+def register():
+    users = mongo.db.users
+    first_name = request.get_json()['first_name']
+    last_name = request.get_json()['last_name']
+    email = request.get_json()['email']
+    password = bcrypt.generate_password_hash(request.get_json()['password']).decode('utf-8')
+    created = datetime.utcnow()
+
+    user_id = users.insert({
+        'first_name': first_name,
+        'last_name': last_name,
+        'email': email,
+        'password': password,
+        'created': created
+    })
+
+    new_user = users.find_one({'_id': user_id})
+
+    result = {'email': new_user['email'] + ' registered'}
+
+    return jsonify({'result' : result})
+
+@app.route('/users/login', methods=['POST'])
+def login():
+    users = mongo.db.users
+    email = request.get_json()['email']
+    password = request.get_json()['password']
+    result = ""
+
+    response = users.find_one({'email': email})
+
+    if response:
+        if bcrypt.check_password_hash(response['password'], password):
+            access_token = create_access_token(identity = {
+                'first_name': response['first_name'],
+                'last_name': response['last_name'],
+                'email': response['email']
+            })
+            result = jsonify({'token':access_token})
+        else:
+            result = jsonify({"error":"Invalid username and password"})
+    else:
+        result = jsonify({"result":"No results found"})
+    return result
+
 
 
 @app.route("/students")
