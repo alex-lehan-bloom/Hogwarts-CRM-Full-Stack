@@ -7,6 +7,14 @@ function NavBar() {
     <div className="navbar">
       <NavLink
         exact
+        to="/"
+        className="navbar-link"
+        activeClassName="navbar-link-active"
+      >
+        Home
+      </NavLink>
+      <NavLink
+        exact
         to="/dashboard"
         className="navbar-link"
         activeClassName="navbar-link-active"
