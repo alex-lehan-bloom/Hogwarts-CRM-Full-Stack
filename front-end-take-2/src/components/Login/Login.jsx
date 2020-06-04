@@ -29,6 +29,7 @@ class Login extends Component {
 
     login(user).then((res) => {
       if (!res.error) {
+        this.props.login();
         this.setState({ successfulLogin: true });
       }
     });

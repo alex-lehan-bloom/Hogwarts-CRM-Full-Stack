@@ -112,7 +112,7 @@ function StudentForm(props) {
       setAlertOpen(true);
       setTimeout(() => {
         setRedirectOnDelete(true);
-      }, 2000);
+      }, 1000);
     } else {
       setAlertMessage(response.data.Error);
       setAlertSeverity("error");
