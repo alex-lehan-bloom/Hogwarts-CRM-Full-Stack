@@ -54,9 +54,7 @@ def login():
     email = request.get_json()['email']
     password = request.get_json()['password']
     result = ""
-
     response = users.find_one({'email': email})
-
     if response:
         if bcrypt.check_password_hash(response['password'], password):
             access_token = create_access_token(identity = {
@@ -66,9 +64,11 @@ def login():
             })
             result = jsonify({'token':access_token})
         else:
-            result = jsonify({"error":"Invalid username and password"})
+            response_body = {"error":"Invalid username and password."}
+            result = app.response_class(response=json.dumps(response_body), status=401, mimetype="application/json")
     else:
-        result = jsonify({"result":"No results found"})
+        response_body = {"error":"Email address has not been registered."}
+        result = app.response_class(response=json.dumps(response_body), status=401, mimetype="application/json" )
     return result
 
 

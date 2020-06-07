@@ -4,6 +4,7 @@ import { Redirect } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import { NavLink } from "react-router-dom";
+import AlertMessage from "../Alert";
 import "../../css/RegisterAndLogin.css";
 
 class Login extends Component {
@@ -13,8 +14,10 @@ class Login extends Component {
       email: "",
       password: "",
       login: false,
+      alertOpen: false,
+      alertSeverity: "success",
+      alertMessage: "",
     };
-
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
@@ -30,15 +33,22 @@ class Login extends Component {
       password: this.state.password,
     };
 
-    login(user).then((res) => {
-      if (!res.error) {
+    login(user).then((response) => {
+      if (response.statusText === "OK") {
         this.props.login();
         this.setState({ successfulLogin: true });
+      } else {
+        this.setState({
+          alertMessage: response.data.error,
+          alertSeverity: "error",
+          alertOpen: true,
+        });
       }
     });
   }
 
   render() {
+    let { alertOpen, alertSeverity, alertMessage } = this.state;
     return (
       <>
         <div className="register-container">
@@ -56,6 +66,7 @@ class Login extends Component {
               id="outlined-basic"
               name="password"
               label="Password"
+              type="password"
               variant="outlined"
               className="register-form-text-field"
               onChange={this.onChange}
@@ -77,6 +88,14 @@ class Login extends Component {
             </p>
           </form>
         </div>
+        <AlertMessage
+          open={alertOpen}
+          message={alertMessage}
+          severity={alertSeverity}
+          handleClose={() => {
+            this.setState({ alertOpen: false });
+          }}
+        />
         {this.state.successfulLogin && <Redirect to="/" />}
       </>
     );
