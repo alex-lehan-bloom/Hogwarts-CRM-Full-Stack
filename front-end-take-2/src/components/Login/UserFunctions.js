@@ -11,7 +11,7 @@ export const register = (newUser) => {
       password: newUser.password,
     })
     .then((response) => {
-      console.log("Registered");
+      return response;
     });
 };
 
@@ -23,11 +23,9 @@ export const login = (user) => {
     })
     .then((response) => {
       localStorage.setItem("usertoken", response.data.token);
-      console.log(response);
-      return response.data.token;
+      return response;
     })
     .catch((error) => {
-      console.log(error.response);
       return error.response;
     });
 };

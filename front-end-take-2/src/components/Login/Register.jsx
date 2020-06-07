@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { register } from "./UserFunctions";
+import { register, login } from "./UserFunctions.js";
 import { Redirect } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -26,16 +26,29 @@ class Register extends Component {
 
   onSubmit(e) {
     e.preventDefault();
-
     const newUser = {
       first_name: this.state.first_name,
       last_name: this.state.last_name,
       email: this.state.email,
       password: this.state.password,
     };
+    register(newUser).then((response) => {
+      if (response.statusText === "OK") {
+        this.loginUser();
+      }
+    });
+  }
 
-    register(newUser).then((res) => {
-      this.setState({ successfulRegister: true });
+  loginUser() {
+    const user = {
+      email: this.state.email,
+      password: this.state.password,
+    };
+    login(user).then((response) => {
+      if (response.statusText === "OK") {
+        this.props.login();
+        this.setState({ successfulRegister: true });
+      }
     });
   }
 
@@ -72,6 +85,7 @@ class Register extends Component {
               id="outlined-basic"
               name="password"
               label="Password"
+              type="password"
               variant="outlined"
               className="register-form-text-field"
               onChange={this.onChange}
@@ -87,7 +101,7 @@ class Register extends Component {
             </Button>
           </form>
         </div>
-        {this.state.successfulRegister && <Redirect to="/login" />}
+        {this.state.successfulRegister && <Redirect to="/" />}
       </>
     );
   }

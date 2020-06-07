@@ -39,7 +39,11 @@ function App() {
             </Route>
             <Route exact path="/register">
               <h1>Hogwarts Admin Console</h1>
-              <Register />
+              <Register
+                login={() => {
+                  setLoggedIn(true);
+                }}
+              />
             </Route>
             {loggedIn && (
               <>
