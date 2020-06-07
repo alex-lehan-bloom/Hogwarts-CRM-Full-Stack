@@ -4,7 +4,7 @@ import NumberStudents from "./NumberStudents";
 import MagicSkills from "./MagicSkills";
 import Courses from "./CoursesChart";
 import EnrollmentDatePicker from "./DatePicker";
-import { getStudents } from "../../lib/api.js";
+import { getStudents } from "../../lib/StudentAPI.js";
 import "../../css/Dashboard.css";
 
 function Dashboard() {

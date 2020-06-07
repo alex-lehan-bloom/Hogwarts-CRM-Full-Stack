@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getStudentSkills } from "../../lib/api.js";
+import { getStudentSkills } from "../../lib/StudentAPI.js";
 import { Bar, Line, Pie } from "react-chartjs-2";
 import "../../css/ChartMagicSkills.css";
 

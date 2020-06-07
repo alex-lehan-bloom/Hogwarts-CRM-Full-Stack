@@ -9,7 +9,7 @@ import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { deleteStudent } from "../lib/api.js";
+import { deleteStudent } from "../lib/StudentAPI.js";
 import { withRouter } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -41,6 +41,10 @@ const useStyles = makeStyles((theme) => ({
 
 const theme = createMuiTheme({
   palette: { type: "dark" },
+  typography: {
+    fontFamily: `"Caveat", cursive`,
+    fontSize: 17,
+  },
 });
 
 function DeleteStudent(props) {

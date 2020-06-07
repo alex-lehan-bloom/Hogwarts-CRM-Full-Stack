@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { register, login } from "./UserFunctions.js";
+import { register, login } from "../../lib/UserAPI.js";
 import { Redirect } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+import { NavLink } from "react-router-dom";
 import "../../css/RegisterAndLogin.css";
 
 class Register extends Component {
@@ -100,6 +101,12 @@ class Register extends Component {
               Register
             </Button>
           </form>
+          <p className="link-to-register-page">
+            * Already have an account?
+            <NavLink exact to="/login" className="navlink-to-register">
+              Login here
+            </NavLink>
+          </p>
         </div>
         {this.state.successfulRegister && <Redirect to="/" />}
       </>

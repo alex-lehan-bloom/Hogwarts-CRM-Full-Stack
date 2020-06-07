@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
-import { getStudentById } from "../lib/api";
+import { getStudentById } from "../lib/StudentAPI.js";
 import Header from "./Header";
 import StudentForm from "./AddStudent/StudentForm";
 import AlertMessage from "./Alert";

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { login } from "./UserFunctions.js";
+import { login } from "../../lib/UserAPI.js";
 import { Redirect } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -81,7 +81,7 @@ class Login extends Component {
               Sign In
             </Button>
             <p className="link-to-register-page">
-              Don't have an account?
+              * Don't have an account?
               <NavLink exact to="/register" className="navlink-to-register">
                 Register here
               </NavLink>

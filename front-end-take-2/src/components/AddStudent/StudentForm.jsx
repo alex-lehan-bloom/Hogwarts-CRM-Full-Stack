@@ -8,7 +8,7 @@ import HouseSelection from "./FormComponents/HouseSelection";
 import MagicSkills from "./FormComponents/MagicSkills";
 import Courses from "./FormComponents/Courses";
 import DeleteStudent from "../DeleteStudent";
-import { enrollStudent, updateStudent } from "../../lib/api";
+import { enrollStudent, updateStudent } from "../../lib/StudentAPI.js";
 import AlertMessage from "../Alert";
 import { Redirect } from "react-router-dom";
 
@@ -16,7 +16,10 @@ const useStyles = makeStyles(() => ({
   root: {
     width: "60%",
     minWidth: 440,
-    paddingBottom: 100,
+    background: "white",
+    opacity: "93%",
+    padding: 20,
+    borderRadius: 4,
   },
   enrollButton: { margin: "20px 0 20px 0" },
 }));
@@ -24,7 +27,11 @@ const useStyles = makeStyles(() => ({
 function StudentForm(props) {
   const classes = useStyles();
   const theme = createMuiTheme({
-    palette: { type: "dark" },
+    typography: {
+      fontFamily: `"Caveat", cursive`,
+      fontSize: 17,
+    },
+    // palette: { type: "dark" },
   });
   let [student, setStudent] = useState({});
   let [firstName, setFirstName] = useState("");
@@ -112,7 +119,7 @@ function StudentForm(props) {
       setAlertOpen(true);
       setTimeout(() => {
         setRedirectOnDelete(true);
-      }, 1000);
+      }, 1500);
     } else {
       setAlertMessage(response.data.Error);
       setAlertSeverity("error");

@@ -16,11 +16,14 @@ import "../../css/StudentsList.css";
 function StudentsList(props) {
   const useStyles = makeStyles({
     table: {
-      "& .MuiTableHead-root": {
+      border: "1px solid gray",
+      opacity: "93%",
+      "& .header": {
         backgroundColor: "black",
-        color: "#384d92",
+        opacity: "93%",
       },
-      "& .MuiTableCell-head": {
+      "& .header-cell": {
+        color: "white",
         fontFamily: "'Roboto', sans-serif",
         fontSize: 17,
         fontWeight: "bold",
@@ -41,12 +44,20 @@ function StudentsList(props) {
     <ThemeProvider theme={theme}>
       <TableContainer component={Paper} className={classes.table}>
         <Table aria-label="simple table">
-          <TableHead>
+          <TableHead className="header">
             <TableRow>
-              <TableCell align="center">Student</TableCell>
-              <TableCell align="center">House</TableCell>
-              <TableCell align="center">Enrollment Date</TableCell>
-              <TableCell align="center">Last Updated</TableCell>
+              <TableCell align="center" className="header-cell">
+                Student
+              </TableCell>
+              <TableCell align="center" className="header-cell">
+                House
+              </TableCell>
+              <TableCell align="center" className="header-cell">
+                Enrollment Date
+              </TableCell>
+              <TableCell align="center" className="header-cell">
+                Last Updated
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

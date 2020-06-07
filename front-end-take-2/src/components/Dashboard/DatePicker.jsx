@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
-import { getStudentsEnrolledOnDate } from "../../lib/api.js";
+import { getStudentsEnrolledOnDate } from "../../lib/StudentAPI.js";
 import "react-datepicker/dist/react-datepicker.css";
 import "../../css/DatePicker.css";
 

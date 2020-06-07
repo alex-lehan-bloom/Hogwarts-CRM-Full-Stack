@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Header from "../Header";
 import StudentsList from "./StudentsList";
-import { getStudents } from "../../lib/api";
+import { getStudents } from "../../lib/StudentAPI.js";
 
 function StudentsPage() {
   const [students, setStudents] = useState();
