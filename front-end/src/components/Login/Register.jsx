@@ -40,7 +40,6 @@ class Register extends Component {
       if (response.statusText === "OK") {
         this.loginUser();
       } else {
-        console.log("ERROR");
         this.setState({
           alertMessage: response.data.error,
           alertSeverity: "error",

@@ -32,11 +32,6 @@ function StudentPage(props) {
     setAlertOpen(false);
   }
 
-  //   useEffect(() => {
-  //     console.log(student);
-  //     setDisplayForm(true);
-  //   }, [student]);
-
   return (
     <div className="main">
       {display && (

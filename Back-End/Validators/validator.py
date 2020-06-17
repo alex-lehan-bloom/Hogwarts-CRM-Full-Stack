@@ -1,5 +1,7 @@
 import bson
 from static_info import houses, delete_password
+import re
+
 
 
 
@@ -34,13 +36,14 @@ class Validators:
             raise ValueError("House is required.")
 
     def validate_student_name(self, first_name, last_name):
+        supported_characters = "^[a-zA-Z ]+([a-zA-Z ]+)?$"
         first_name = str(first_name)
         last_name = str(last_name)
-        if not first_name.isalpha():
+        if not re.search(supported_characters, first_name):
             raise ValueError("First name contains an invalid character.")
         if first_name is "" or first_name is None:
             raise ValueError("First name is missing.")
-        if not last_name.isalpha():
+        if not re.search(supported_characters, last_name):
             raise ValueError("Last name contains an invalid character.")
         if last_name is "" or last_name is None:
             raise ValueError("Last name is missing.")

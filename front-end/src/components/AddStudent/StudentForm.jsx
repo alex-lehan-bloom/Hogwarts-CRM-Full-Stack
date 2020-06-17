@@ -32,7 +32,6 @@ function StudentForm(props) {
       fontFamily: `"Caveat", cursive`,
       fontSize: 17,
     },
-    // palette: { type: "dark" },
   });
   let [student, setStudent] = useState({});
   let [firstName, setFirstName] = useState("");

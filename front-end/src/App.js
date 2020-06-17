@@ -23,14 +23,11 @@ function App() {
   useEffect(() => {
     const token = localStorage.usertoken;
     if (token === undefined) {
-      console.log(token);
       setLoggedIn(false);
     }
   }, []);
 
-  useEffect(() => {
-    console.log(loggedIn);
-  }, [loggedIn]);
+  useEffect(() => {}, [loggedIn]);
 
   const theme = createMuiTheme({
     typography: {

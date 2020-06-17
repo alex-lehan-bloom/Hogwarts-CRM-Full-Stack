@@ -114,18 +114,14 @@ export async function getStudentSkills() {
   try {
     let response = await axios.get(`${baseURL}/students/skills`);
     return response;
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 }
 
 export async function getStudentsInEachCourse() {
   try {
     let response = await axios.get(`${baseURL}/students/courses`);
     return response;
-  } catch (error) {
-    console.log(error);
-  }
+  } catch (error) {}
 }
 
 export async function getStudentsEnrolledOnDate(date) {
