@@ -1,21 +1,57 @@
 import React, { useState, useEffect } from "react";
+import {
+  makeStyles,
+  createMuiTheme,
+  ThemeProvider,
+} from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-import DeleteIcon from "@material-ui/icons/Delete";
 import TextField from "@material-ui/core/TextField";
-import AlertMessage from "./Alert";
-import { deleteStudent } from "../lib/api.js";
-import { useStyles } from "../css/DeleteStudentCSS";
+import { deleteStudent } from "../lib/StudentAPI.js";
+import { withRouter } from "react-router-dom";
 
-export default function DeleteStudent(props) {
+const useStyles = makeStyles((theme) => ({
+  modal: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    textAlign: "center",
+  },
+  openModalButton: {
+    width: "100%",
+  },
+  paper: {
+    backgroundColor: "black",
+    border: "1px solid #adadad",
+    borderRadius: 4,
+    boxShadow: theme.shadows[5],
+    padding: "0 10px 20px 10px",
+  },
+  description: {
+    margin: 0,
+  },
+  deleteButton: {
+    display: "block",
+    marginTop: 20,
+    width: "100%",
+  },
+}));
+
+const theme = createMuiTheme({
+  palette: { type: "dark" },
+  typography: {
+    fontFamily: `"Caveat", cursive`,
+    fontSize: 17,
+  },
+});
+
+function DeleteStudent(props) {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
+  const [password, setPassword] = useState("");
+  const [disableDeleteButton, setDisableDeleteButton] = useState(true);
 
   const handleOpen = () => {
     setOpen(true);
@@ -25,54 +61,37 @@ export default function DeleteStudent(props) {
     setOpen(false);
   };
 
-  const [password, setPassword] = useState("");
-  const [deleteIconDisabled, setDeleteIconDisabled] = useState(true);
-  const [alertOpen, setAlertOpen] = useState(false);
-  const [alertSeverity, setAlertSeverity] = useState("success");
-  const [alertMessage, setAlertMessage] = useState("");
-
-  function handleCloseOfAlert() {
-    setAlertOpen(false);
-  }
-
   function handlePassword(event) {
     setPassword(event.target.value);
   }
 
   useEffect(() => {
     if (password.length > 0) {
-      setDeleteIconDisabled(false);
+      setDisableDeleteButton(false);
     } else {
-      setDeleteIconDisabled(true);
+      setDisableDeleteButton(true);
     }
   }, [password]);
 
-  async function handleSubmit(event) {
+  async function handleDelete(event) {
     event.preventDefault();
     let response = await deleteStudent(props.studentId, password);
-    console.log(response);
+    props.handleDelete(response);
     if (response.statusText === "OK") {
-      setAlertMessage(
-        `${props.firstName} ${props.lastName} was successfully deleted!`
-      );
-      setAlertSeverity("success");
-      setAlertOpen(true);
-    } else {
-      setAlertMessage(response.data.Error);
-      setAlertSeverity("error");
-      setAlertOpen(true);
+      handleClose();
     }
   }
 
   return (
     <div>
       <Button
+        className={classes.enrollButton}
         variant="contained"
-        color="primary"
+        className={classes.openModalButton}
+        color="secondary"
         onClick={handleOpen}
-        startIcon={<DeleteIcon />}
       >
-        Delete
+        Delete Student
       </Button>
       <Modal
         aria-labelledby="transition-modal-title"
@@ -88,54 +107,36 @@ export default function DeleteStudent(props) {
       >
         <Fade in={open}>
           <div className={classes.paper}>
-            <Card className={classes.card}>
-              <CardContent>
-                <Typography className="header-container">
-                  <h2 className="header">Delete Student</h2>
-                </Typography>
-                <div className="main-content">
-                  <h4 className="name">
-                    {props.firstName} {props.lastName}
-                  </h4>
-                  <Typography>
-                    <TextField
-                      className="password"
-                      onChange={(event) => {
-                        handlePassword(event);
-                      }}
-                      label="Delete Password"
-                      variant="outlined"
-                      type="password"
-                    />
-                  </Typography>
-                </div>
-              </CardContent>
-              <CardActions>
-                <Button
-                  className="delete-button"
-                  disabled={deleteIconDisabled}
-                  variant="contained"
-                  color="primary"
-                  startIcon={<DeleteIcon />}
-                  onClick={(event) => {
-                    handleSubmit(event);
-                  }}
-                >
-                  Delete
-                </Button>
-              </CardActions>
-            </Card>
+            <h2 id="transition-modal-title">Delete</h2>
+            <p className={classes.description}>
+              * Secret password required to delete a student.
+            </p>
+            <ThemeProvider theme={theme}>
+              <TextField
+                id="standard-basic"
+                label="Password"
+                type="password"
+                classname="paper"
+                onChange={(event) => {
+                  handlePassword(event);
+                }}
+              />
+              <Button
+                className={classes.deleteButton}
+                variant="contained"
+                disabled={disableDeleteButton}
+                onClick={(event) => {
+                  handleDelete(event);
+                }}
+              >
+                Delete Student
+              </Button>
+            </ThemeProvider>
           </div>
         </Fade>
       </Modal>
-      <AlertMessage
-        open={alertOpen}
-        message={alertMessage}
-        severity={alertSeverity}
-        handleClose={() => {
-          handleCloseOfAlert();
-        }}
-      />
     </div>
   );
 }
+
+export default withRouter(DeleteStudent);

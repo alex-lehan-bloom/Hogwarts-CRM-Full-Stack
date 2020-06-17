@@ -17,6 +17,7 @@ const useStyles = makeStyles(() => ({
     width: "60%",
     minWidth: 440,
     background: "white",
+    border: "1px solid gray",
     opacity: "93%",
     padding: 20,
     borderRadius: 4,

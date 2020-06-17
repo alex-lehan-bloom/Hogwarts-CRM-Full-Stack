@@ -16,7 +16,6 @@ class Register extends Component {
       password: "",
       successfulRegister: false,
     };
-
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
   }
@@ -33,6 +32,7 @@ class Register extends Component {
       email: this.state.email,
       password: this.state.password,
     };
+    console.log("GOing to register");
     register(newUser).then((response) => {
       if (response.statusText === "OK") {
         this.loginUser();
@@ -65,6 +65,7 @@ class Register extends Component {
               name="first_name"
               variant="outlined"
               className="register-form-text-field"
+              onChange={this.onChange}
             />
             <TextField
               id="outlined-basic"

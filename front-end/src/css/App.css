@@ -1,24 +1,27 @@
 :root {
-  --page-padding-top: 30px;
-  --main-content-padding-left: 30px;
+  --hover-color: #384d92;
 }
 body {
-  font-family: "Roboto", sans-serif;
-  height: 100%;
+  background-image: url("https://static.wixstatic.com/media/7582a6_8d1e463bd44d44dda6c1d3e79bd697a2~mv2.gif");
+  background-color: #282c34;
+  font-family: "Caveat", cursive;
+  width: 100%;
+  color: white;
 }
-#root {
-  height: 100%;
-}
-
 .App {
-  width: 100vw;
-  height: 100%;
-  display: flex;
+  width: 100%;
 }
 
 .page-content {
+  padding: 0 10px 100px 0;
   display: flex;
-  width: 100%;
   flex-direction: column;
-  padding-bottom: 50px;
+  align-items: center;
+}
+
+.page-content .main {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
