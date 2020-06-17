@@ -70,7 +70,6 @@ function StudentsList(props) {
                 component="a"
                 rel="noreferrer"
                 className="student-table-row"
-                // href={`/student/${student._id}`}
                 component={Link}
                 to={`/student/${student._id}`}
               >

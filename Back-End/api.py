@@ -1,24 +1,22 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from datetime import datetime
 from student import Student
 from db_functions import DbFunctions
 from validator import Validators
 from static_info import magic_skills, courses
-from flask_bcrypt import Bcrypt
 from flask_jwt_extended import JWTManager, create_access_token
 from flask_pymongo import PyMongo
+from flask_bcrypt import Bcrypt
 import json
 
 app = Flask(__name__)
 CORS(app)
+bcrypt = Bcrypt(app)
 db = DbFunctions()
 validator = Validators()
-
 app.config['MONGO_DBNAME'] = 'Hogwarts'
 app.config['MONGO_URI'] = 'mongodb://localhost:27017/Hogwarts'
 app.config['JWT_SECRET_KEY'] = 'secret'
-
 mongo = PyMongo(app)
 bcrypt = Bcrypt(app)
 jwt = JWTManager(app)
@@ -27,9 +25,8 @@ jwt = JWTManager(app)
 
 @app.route('/users/register', methods=["POST"])
 def register():
-    users = mongo.db.users
     email = request.get_json()['email']
-    does_email_exist = db.get_email(email)
+    does_email_exist = db.get_user(email)
     if does_email_exist != None:
         response = app.response_class(response=json.dumps({'error': "Email has already been registered."}), status=409, mimetype="application/json")
         return response
@@ -37,31 +34,23 @@ def register():
         first_name = request.get_json()['first_name']
         last_name = request.get_json()['last_name']
         password = bcrypt.generate_password_hash(request.get_json()['password']).decode('utf-8')
-        created = datetime.utcnow()
-        user_id = users.insert({
-            'first_name': first_name,
-            'last_name': last_name,
-            'email': email,
-            'password': password,
-            'created': created
-        })
-        new_user = users.find_one({'_id': user_id})
-        result = {'email': new_user['email'] + ' registered'}
-        return jsonify({'result' : result})
+        result = db.register_user(first_name, last_name, email, password)
+        response = app.response_class(response=json.dumps({'result': result}), status=200,
+                                      mimetype="application/json")
+        return response
 
 @app.route('/users/login', methods=['POST'])
 def login():
-    users = mongo.db.users
     email = request.get_json()['email']
     password = request.get_json()['password']
     result = ""
-    response = users.find_one({'email': email})
-    if response:
-        if bcrypt.check_password_hash(response['password'], password):
+    user = db.get_user(email)
+    if user:
+        if bcrypt.check_password_hash(user['password'], password):
             access_token = create_access_token(identity = {
-                'first_name': response['first_name'],
-                'last_name': response['last_name'],
-                'email': response['email']
+                'first_name': user['first_name'],
+                'last_name': user['last_name'],
+                'email': user['email']
             })
             result = jsonify({'token':access_token})
         else:

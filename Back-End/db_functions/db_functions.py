@@ -5,11 +5,26 @@ import calendar
 from static_info import student_fields
 
 
+
 class DbFunctions:
 
-    def get_email(self, email):
-        email = db.users.find_one({"email": email})
-        return email
+    def register_user(self, first_name, last_name, email, password):
+        created = datetime.datetime.utcnow()
+        user_id = db.users.insert({
+            'first_name': first_name,
+            'last_name': last_name,
+            'email': email,
+            'password': password,
+            'created': created
+        })
+        new_user = db.users.find_one({'_id': user_id})
+        result = {'email': new_user['email'] + ' registered'}
+        return result
+
+
+    def get_user(self, email):
+        user = db.users.find_one({"email": email})
+        return user
 
     def add_student(self, student):
         student_id = db.students.insert(student)
