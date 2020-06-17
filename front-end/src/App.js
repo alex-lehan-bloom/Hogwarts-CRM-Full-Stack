@@ -18,12 +18,13 @@ import {
 import "./css/App.css";
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
 
   useEffect(() => {
     const token = localStorage.usertoken;
-    if (token !== undefined) {
-      setLoggedIn(true);
+    if (token === undefined) {
+      console.log(token);
+      setLoggedIn(false);
     }
   }, []);
 
