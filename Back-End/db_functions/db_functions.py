@@ -7,6 +7,10 @@ from static_info import student_fields
 
 class DbFunctions:
 
+    def get_email(self, email):
+        email = db.users.find_one({"email": email})
+        return email
+
     def add_student(self, student):
         student_id = db.students.insert(student)
         return str(student_id)
@@ -88,6 +92,7 @@ class DbFunctions:
                 invalid_key = key
                 raise ValueError("The field '{}' is invalid.".format(invalid_key))
         return self.get_single_student(student_id)
+
 
 
 

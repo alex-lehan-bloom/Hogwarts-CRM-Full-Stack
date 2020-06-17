@@ -3,7 +3,6 @@ import axios from "axios";
 const baseURL = "http://localhost:5000";
 
 export const register = (newUser) => {
-  console.log(newUser);
   return axios
     .post(`${baseURL}/users/register`, {
       first_name: newUser.first_name,
@@ -12,8 +11,11 @@ export const register = (newUser) => {
       password: newUser.password,
     })
     .then((response) => {
-      console.log(response);
       return response;
+    })
+    .catch((error) => {
+      console.log(error.response);
+      return error.response;
     });
 };
 

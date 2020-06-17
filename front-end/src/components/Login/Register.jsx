@@ -4,6 +4,7 @@ import { Redirect } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import { NavLink } from "react-router-dom";
+import AlertMessage from "../Alert";
 import "../../css/RegisterAndLogin.css";
 
 class Register extends Component {
@@ -15,6 +16,9 @@ class Register extends Component {
       email: "",
       password: "",
       successfulRegister: false,
+      alertOpen: false,
+      alertSeverity: "success",
+      alertMessage: "",
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -32,10 +36,15 @@ class Register extends Component {
       email: this.state.email,
       password: this.state.password,
     };
-    console.log("GOing to register");
     register(newUser).then((response) => {
       if (response.statusText === "OK") {
         this.loginUser();
+      } else {
+        this.setState({
+          alertMessage: response.data.error,
+          alertSeverity: "error",
+          alertOpen: true,
+        });
       }
     });
   }
@@ -54,6 +63,7 @@ class Register extends Component {
   }
 
   render() {
+    let { alertOpen, alertSeverity, alertMessage } = this.state;
     return (
       <>
         <div className="register-container">
@@ -109,6 +119,14 @@ class Register extends Component {
             </NavLink>
           </p>
         </div>
+        <AlertMessage
+          open={alertOpen}
+          message={alertMessage}
+          severity={alertSeverity}
+          handleClose={() => {
+            this.setState({ alertOpen: false });
+          }}
+        />
         {this.state.successfulRegister && <Redirect to="/" />}
       </>
     );

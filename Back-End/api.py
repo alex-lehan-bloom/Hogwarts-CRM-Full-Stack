@@ -28,25 +28,26 @@ jwt = JWTManager(app)
 @app.route('/users/register', methods=["POST"])
 def register():
     users = mongo.db.users
-    first_name = request.get_json()['first_name']
-    last_name = request.get_json()['last_name']
     email = request.get_json()['email']
-    password = bcrypt.generate_password_hash(request.get_json()['password']).decode('utf-8')
-    created = datetime.utcnow()
-
-    user_id = users.insert({
-        'first_name': first_name,
-        'last_name': last_name,
-        'email': email,
-        'password': password,
-        'created': created
-    })
-
-    new_user = users.find_one({'_id': user_id})
-
-    result = {'email': new_user['email'] + ' registered'}
-
-    return jsonify({'result' : result})
+    does_email_exist = db.get_email(email)
+    if does_email_exist != None:
+        response = app.response_class(response=json.dumps({'error': "Email has already been registered."}), status=409, mimetype="application/json")
+        return response
+    else:
+        first_name = request.get_json()['first_name']
+        last_name = request.get_json()['last_name']
+        password = bcrypt.generate_password_hash(request.get_json()['password']).decode('utf-8')
+        created = datetime.utcnow()
+        user_id = users.insert({
+            'first_name': first_name,
+            'last_name': last_name,
+            'email': email,
+            'password': password,
+            'created': created
+        })
+        new_user = users.find_one({'_id': user_id})
+        result = {'email': new_user['email'] + ' registered'}
+        return jsonify({'result' : result})
 
 @app.route('/users/login', methods=['POST'])
 def login():
@@ -64,7 +65,7 @@ def login():
             })
             result = jsonify({'token':access_token})
         else:
-            response_body = {"error":"Invalid username and password."}
+            response_body = {"error":"Invalid username and/or password."}
             result = app.response_class(response=json.dumps(response_body), status=401, mimetype="application/json")
     else:
         response_body = {"error":"Email address has not been registered."}
