@@ -9,7 +9,12 @@ import AddStudentPage from "./components/AddStudent/AddStudentPage";
 import StudentPage from "./components/StudentPage";
 import Dashboard from "./components/Dashboard/Dashboard";
 import Profile from "./components/Profile/ProfilePage";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import "./css/App.css";
 
 function App() {
@@ -55,6 +60,7 @@ function App() {
                   }}
                 />
               </Route>
+              {!loggedIn && <Redirect to="login" />}
               {loggedIn && (
                 <>
                   <NavBar />
