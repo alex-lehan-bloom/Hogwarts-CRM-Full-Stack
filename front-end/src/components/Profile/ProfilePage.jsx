@@ -40,6 +40,30 @@ class Profile extends Component {
     return (
       <>
         <Header header="Profile" />
+        {/* <div>
+          <div className="test">
+            <h2>
+              <span className="title">First Name:</span> {this.state.first_name}
+            </h2>
+            <h2>
+              <span className="title">Last Name: </span>
+              {this.state.last_name}
+            </h2>
+            <h2>
+              <span className="title">Email Address:</span> {this.state.email}
+            </h2>
+          </div>
+          <Button
+            variant="contained"
+            color="primary"
+            className="logout"
+            onClick={(event) => {
+              this.logOut(event);
+            }}
+          >
+            Logout
+          </Button>
+        </div> */}
         <div>
           <div className="profile-info">
             <h2>
