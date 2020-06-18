@@ -1,8 +1,6 @@
 import bson
-from static_info import houses, delete_password
+from static_files.static_info import houses, delete_password
 import re
-
-
 
 
 class Validators:

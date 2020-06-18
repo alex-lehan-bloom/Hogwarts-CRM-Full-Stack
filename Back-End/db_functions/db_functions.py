@@ -1,8 +1,8 @@
-from initialize_db import db
+from .initialize_db import db
 from bson import ObjectId
 import datetime
 import calendar
-from static_info import student_fields
+from static_files.static_info import student_fields
 
 
 

@@ -1,9 +1,9 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from student import Student
-from db_functions import DbFunctions
-from validator import Validators
-from static_info import magic_skills, courses
+from models.student import Student
+from db_functions.db_functions import DbFunctions
+from Validators.validator import Validators
+from static_files.static_info import magic_skills, courses
 from flask_jwt_extended import JWTManager, create_access_token
 from flask_pymongo import PyMongo
 from flask_bcrypt import Bcrypt
@@ -93,7 +93,6 @@ def get_students_route():
             try:
                 validator.validate_item_is_int(i)
             except Exception as error:
-                print(error)
                 response = app.response_class(response=json.dumps({"Error": str(error)}), status=400,
                                               mimetype="application/json")
                 return response
@@ -108,11 +107,6 @@ def get_students_route():
         all_students = db.get_all_students()
         response = app.response_class(response=json.dumps(all_students), status=200, mimetype="application/json")
         return response
-
-@app.route("/students")
-def get_students_by_skill_route():
-    skill = request.args.get('skill')
-    print(skill)
 
 @app.route("/students/skills")
 def get_skills_for_each_student():
@@ -150,7 +144,6 @@ def add_student_route():
 @app.route("/student/<student_id>", methods=['DELETE'])
 def delete_student_route(student_id):
     delete_password = request.args.get("delete_key")
-    print(delete_password)
     try:
         validator.validate_objectid(student_id)
         validator.validate_delete_password(delete_password)
@@ -198,7 +191,6 @@ def set_student_skills_route(student_id):
         return response
     else:
         updates_to_user = request.json
-        print(updates_to_user)
         try:
             updated_student = db.update_student(student_id, updates_to_user)
             response=app.response_class(response=json.dumps(updated_student), status=200, mimetype="application/json")
@@ -211,4 +203,5 @@ def set_student_skills_route(student_id):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
+
