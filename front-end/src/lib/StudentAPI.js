@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const baseURL = "http://localhost:5000";
+const baseURL = "https://hogwarts-backend.herokuapp.com";
 
 export async function getStudents() {
   try {

@@ -1,8 +1,8 @@
 from pymongo import MongoClient
 
-client = MongoClient('mongodb://localhost:27017/')
+client = MongoClient('mongodb+srv://alex-bloom:start123@hogwarts-544so.mongodb.net/hogwarts?retryWrites=true&w=majority')
 
-db = client['Hogwarts']
+db = client['hogwarts']
 
 
 

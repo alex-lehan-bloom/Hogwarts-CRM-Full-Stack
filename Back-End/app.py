@@ -9,6 +9,7 @@ from flask_pymongo import PyMongo
 from flask_bcrypt import Bcrypt
 import json
 
+
 app = Flask(__name__)
 CORS(app)
 bcrypt = Bcrypt(app)
