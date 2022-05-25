@@ -35,7 +35,7 @@ pluggy==0.13.1
 py==1.8.1
 pycparser==2.20
 pyfiglet==0.8.post1
-PyJWT==1.7.1
+PyJWT==2.4.0
 pymongo==3.10.1
 pyparsing==2.4.7
 pystache==0.5.4
